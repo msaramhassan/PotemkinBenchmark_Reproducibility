@@ -1,6 +1,20 @@
 # Potemkin Benchmark Documentation
 
-Welcome to the documentation for the datasets supporting the Potemkin Benchmark. This guide is structured into the following main components:
+Source code for the paper "[Potemkin Understanding in Large Language Models](https://arxiv.org/abs/2506.21521)" by Marina Mancoridis, Keyon Vafa, Bec Weeks, and Sendhil Mullainathan.
+
+If you find this repository useful for your research, please consider citing our work:
+
+```@article{mancoridis2025potemkin,
+  title={Potemkin Understanding in Large Language Models},
+  author={Mancoridis, Marina and Weeks, Bec and Vafa, Keyon and Mullainathan, Sendhil},
+  journal={arXiv preprint arXiv:2506.21521},
+  year={2025}}
+```
+
+
+## Introduction
+
+This guide is structured into the following main components:
 
 * **Installation**
 * **Quickstart**
