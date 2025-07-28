@@ -4,11 +4,13 @@ Source code for the paper "[Potemkin Understanding in Large Language Models](htt
 
 If you find this repository useful for your research, please consider citing our work:
 
-```@article{mancoridis2025potemkin,
+```
+@article{mancoridis2025potemkin,
   title={Potemkin Understanding in Large Language Models},
   author={Mancoridis, Marina and Weeks, Bec and Vafa, Keyon and Mullainathan, Sendhil},
   journal={arXiv preprint arXiv:2506.21521},
-  year={2025}}
+  year={2025}
+}
 ```
 
 
