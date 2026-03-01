@@ -16,6 +16,7 @@ from utils import (
   relies_on_concept,
   sample_question, 
 )
+from experiment_logger import ExperimentLogger
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", 
@@ -46,23 +47,34 @@ overall_coherence = []
 score_per_concept = []
 bar = tqdm(range(args.num_trials))
 score_per_concept_std_err = float("inf")
+
+# Initialize experiment logger
+log_dir = f"logs/{args.model.replace('/', '_')}/{args.benchmark}"
+logger = ExperimentLogger(output_dir=log_dir, model=args.model, benchmark=args.benchmark)
+
 for trial_index in bar:
     # Sample questions until we find one that depends on a concept and is answered correctly.
     while True:
         question, answer, subject = sample_question(
             args.benchmark, 
         )
+        logger.log_sample_question(trial_index, question, subject, answer)
+        
         # See if question relies on a concept.
         concept_classification, concept = relies_on_concept(question, args.model)
+        logger.log_concept_detection(trial_index, question, subject, concept_classification, concept)
+        
         if concept_classification:
             # See if question is answered correctly.
             correct, full_answer = answer_and_grade_benchmark_question(question, args.model, answer, args.benchmark == "mmlu")
+            logger.log_initial_answer(trial_index, question, subject, concept, full_answer, correct)
             if correct:
                 break
     # Generate subquestions.
     max_attempts = 10
     while max_attempts > 0:
         subquestions = generate_subquestions(question, concept, args.model, args.num_subquestions)
+        logger.log_subquestion_generation(trial_index, question, concept, subquestions, args.num_subquestions)
         if len(subquestions) == args.num_subquestions:
             break
         # print(f"Failed to generate {args.num_subquestions} subquestions (generated {len(subquestions)} instead). {max_attempts} attempts remaining. Retrying...")
@@ -75,19 +87,59 @@ for trial_index in bar:
     subquestion_bar = tqdm(enumerate(subquestions), total=len(subquestions), desc="Subquestions")
     for index, subquestion in subquestion_bar:
         extracted_answer = answer_open_ended_question(subquestion, args.model)
+        logger.log_subquestion_answering(trial_index, question, concept, index, subquestion, extracted_answer)
+        
         # Modify answer to either introduce or remove errors. 
         _, answer_with_error = edit_to_introduce_error(subquestion, extracted_answer, args.model)
+        logger.log_answer_editing(trial_index, question, concept, index, subquestion, extracted_answer, answer_with_error)
+        
         # Self-grading
         expected_answers = ["correct", "incorrect"]
         all_answers = [extracted_answer, answer_with_error]
         for i, answer in enumerate(all_answers):
             judge_answer, full_judge_answer = grade_open_ended_question(subquestion, answer, args.model)
-            # Only add answer if it's not empty. Sometimes R1 doesn't finish.
-            if judge_answer.strip().lower()[:7] == "correct" or judge_answer.strip().lower()[:9] == "incorrect":
-                expected_answer = expected_answers[i]
+            expected_answer = expected_answers[i]
+            
+            # Check if judge output is valid
+            valid_grading = judge_answer.strip().lower()[:7] == "correct" or judge_answer.strip().lower()[:9] == "incorrect"
+            
+            if valid_grading:
                 coherent = 1 if judge_answer.strip().lower()[:len(expected_answer)] == expected_answer.strip().lower() else 0
+                judge_label = "correct" if judge_answer.strip().lower()[:7] == "correct" else "incorrect"
+            else:
+                coherent = None
+                judge_label = None
+            
+            logger.log_grading(
+                trial_index=trial_index,
+                question=question,
+                concept=concept,
+                subquestion_index=index,
+                subquestion=subquestion,
+                model_answer=answer,
+                judge_answer_raw=full_judge_answer,
+                judge_label=judge_label,
+                expected_label=expected_answer,
+                category=index_to_category[i],
+                coherent=coherent,
+                valid=valid_grading
+            )
+            
+            # Only add answer if it's not empty. Sometimes R1 doesn't finish.
+            if valid_grading:
                 category_to_coherence[index_to_category[i]].append(coherent)
                 overall_coherence.append(coherent)
+                
+                logger.log_coherence_scoring(
+                    trial_index=trial_index,
+                    question=question,
+                    concept=concept,
+                    coherent=coherent,
+                    expected_label=expected_answer,
+                    judge_label=judge_label,
+                    category=index_to_category[i]
+                )
+                
                 log_dict = {
                     "original_question": question,
                     "concept": concept,
@@ -111,3 +163,9 @@ for trial_index in bar:
                         f"Potemkin rate (lower bound): {np.mean(score_per_concept):.2f} ({score_per_concept_std_err:.2f}). ")
 
 print(f"Potemkin rate (lower bound): {np.mean(score_per_concept):.2f} ({score_per_concept_std_err:.2f}).")
+
+# Save experiment logs
+log_file = logger.save()
+log_file_jsonl = logger.save_jsonl()
+print(f"Experiment logs saved to: {log_file}")
+print(f"Experiment logs (JSONL) saved to: {log_file_jsonl}")

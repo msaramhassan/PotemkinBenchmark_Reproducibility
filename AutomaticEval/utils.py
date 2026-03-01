@@ -166,7 +166,7 @@ def extract_final_answer(response: str) -> str:
     return ""
 
 
-def generate_inference(prompt, modefunctionl):
+def generate_inference(prompt, model):
     # Check if it's a local model (either prefixed with "local:" or not in API mappings)
     if model.startswith("local:"):
         model_name = model[6:]  # Remove "local:" prefix
