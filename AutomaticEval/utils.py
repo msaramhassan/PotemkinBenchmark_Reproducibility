@@ -12,6 +12,64 @@ from prompts import contains_concept_prompt, subquestion_generation_prompt
 import time
 from google.api_core.exceptions import ResourceExhausted
 
+# Local model support
+_local_model = None
+_local_tokenizer = None
+_local_model_name = None
+
+def load_local_model(model_name):
+    """Load a local model using transformers. Caches the model to avoid reloading."""
+    global _local_model, _local_tokenizer, _local_model_name
+    
+    if _local_model is not None and _local_model_name == model_name:
+        return _local_model, _local_tokenizer
+    
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+    import torch
+    
+    print(f"Loading local model: {model_name}")
+    _local_tokenizer = AutoTokenizer.from_pretrained(model_name)
+    _local_model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        device_map="auto",
+        torch_dtype=torch.float16,
+    )
+    
+    if _local_tokenizer.pad_token is None:
+        _local_tokenizer.pad_token = _local_tokenizer.eos_token
+    
+    _local_model_name = model_name
+    print(f"Model loaded successfully. Device map: {_local_model.hf_device_map}")
+    return _local_model, _local_tokenizer
+
+
+def generate_local_inference(prompt, model_name, max_new_tokens=1024):
+    """Generate inference using a local model."""
+    import torch
+    
+    model, tokenizer = load_local_model(model_name)
+    
+    if hasattr(tokenizer, 'apply_chat_template') and tokenizer.chat_template is not None:
+        messages = [{"role": "user", "content": prompt}]
+        formatted_prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+    else:
+        formatted_prompt = prompt
+    
+    inputs = tokenizer(formatted_prompt, return_tensors="pt").to(model.device)
+    
+    with torch.no_grad():
+        outputs = model.generate(
+            **inputs,
+            max_new_tokens=max_new_tokens,
+            do_sample=True,
+            temperature=0.7,
+            top_p=0.9,
+            pad_token_id=tokenizer.pad_token_id,
+        )
+    
+    response = tokenizer.decode(outputs[0][inputs['input_ids'].shape[1]:], skip_special_tokens=True)
+    return response
+
 
 models_to_developer = {"meta-llama/Llama-3.3-70B-Instruct-Turbo": "together",
           "gpt-4o": "openai",
@@ -108,7 +166,15 @@ def extract_final_answer(response: str) -> str:
     return ""
 
 
-def generate_inference(prompt, model):
+def generate_inference(prompt, modefunctionl):
+    # Check if it's a local model (either prefixed with "local:" or not in API mappings)
+    if model.startswith("local:"):
+        model_name = model[6:]  # Remove "local:" prefix
+        return generate_local_inference(prompt, model_name)
+    elif model not in models_to_developer:
+        # Assume it's a local HuggingFace model path
+        return generate_local_inference(prompt, model)
+    
     if models_to_developer[model] == "openai":
         client = OpenAI(api_key=api_keys["openai"])
         completion = client.chat.completions.create(

@@ -22,26 +22,16 @@ parser.add_argument("--model",
                     type=str, 
                     default=
                         "gpt-4o", 
-                    choices=[
-                        "meta-llama/Llama-3.3-70B-Instruct-Turbo", 
-                        "claude-3-5-sonnet-20241022",
-                        "gpt-4o",
-                        "gpt-4.5-preview",
-                        "o1-mini",
-                        "o3-mini",
-                        "gemini-2.0-flash-exp",
-                        "mistralai/Mistral-7B-Instruct-v0.2",
-                        "Qwen/Qwen2-VL-72B-Instruct",
-                        "deepseek-ai/DeepSeek-V3",
-                        "deepseek-ai/DeepSeek-R1",
-                        ])
+                    help="Model to use. Can be an API model (e.g., gpt-4o, claude-3-5-sonnet-20241022) "
+                         "or a local HuggingFace model path (e.g., meta-llama/Llama-2-7b-chat-hf). "
+                         "Prefix with 'local:' to explicitly use local inference (e.g., local:mistralai/Mistral-7B-Instruct-v0.2)")
 parser.add_argument("--benchmark", 
                     type=str, 
                     default="mmlu",
                     choices=["mmlu", "bbh"])
 parser.add_argument("--num_subquestions", 
                     type=int, 
-                    default=5,
+                    default=5   ,
                     help="number of subquestions (m) to use from the benchmark (for now assume k =1)")
 parser.add_argument("--num_trials", 
                     type=int, 
@@ -75,8 +65,13 @@ for trial_index in bar:
         subquestions = generate_subquestions(question, concept, args.model, args.num_subquestions)
         if len(subquestions) == args.num_subquestions:
             break
-        print(f"Failed to generate {args.num_subquestions} subquestions (generated {len(subquestions)} instead). {max_attempts} attempts remaining. Retrying...")
-        max_attempts -= 1
+        # print(f"Failed to generate {args.num_subquestions} subquestions (generated {len(subquestions)} instead). {max_attempts} attempts remaining. Retrying...")
+        # max_attempts -= 1
+        else:
+            print(f"Generated {len(subquestions)} subquestions instead of {args.num_subquestions}. Proceeding with 5 subquestions after choosing 5 randomly")
+            # pick 5 random subquestions if we generated more than needed.
+            subquestions = np.random.choice(subquestions, size=args.num_subquestions, replace=False).tolist()
+            break
     subquestion_bar = tqdm(enumerate(subquestions), total=len(subquestions), desc="Subquestions")
     for index, subquestion in subquestion_bar:
         extracted_answer = answer_open_ended_question(subquestion, args.model)
