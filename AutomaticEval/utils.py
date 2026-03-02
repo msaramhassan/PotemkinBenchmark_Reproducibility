@@ -307,6 +307,8 @@ def sample_question(benchmark, subject=None):
         subject = random.choice(files)
     file_path = os.path.join(base_path, subject)
 
+    print("Opening file:", file_path)
+
     if benchmark == 'bbh':
         with open(file_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
