@@ -1,0 +1,68 @@
+
+==============================
+Starting experiment with model: Qwen/Qwen2.5-0.5B-Instruct
+Benchmark: mmlu
+Number of subquestions: 5
+Number of trials: 10
+==============================
+
+
+------------------------------
+Starting trial 1/10
+------------------------------
+
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/college_biology_test.csv
+Sampled question: Gene flow between populations results in
+A. an increase in genetic homogeneity in the metapopulation
+B. an increase in the rate of deleterious mutations in the metapopulation
+C. an increased likelihood of speciation
+D. disruption of Hardy-Weinberg equilibrium in the metapopulation
+
+Checking if question relies on a concept...
+Loading local model: Qwen/Qwen2.5-0.5B-Instruct
+Model loaded successfully. Device map: {'model.embed_tokens': 0, 'lm_head': 0, 'model.layers.0': 0, 'model.layers.1': 0, 'model.layers.2': 0, 'model.layers.3': 0, 'model.layers.4': 0, 'model.layers.5': 0, 'model.layers.6': 0, 'model.layers.7': 1, 'model.layers.8': 1, 'model.layers.9': 1, 'model.layers.10': 1, 'model.layers.11': 1, 'model.layers.12': 1, 'model.layers.13': 1, 'model.layers.14': 1, 'model.layers.15': 1, 'model.layers.16': 1, 'model.layers.17': 1, 'model.layers.18': 1, 'model.layers.19': 1, 'model.layers.20': 1, 'model.layers.21': 1, 'model.layers.22': 1, 'model.layers.23': 1, 'model.norm': 1, 'model.rotary_emb': 1}
+Concept classification: True Concept: None
+
+Checking if question is answered correctly...
+Answer correct: True
+
+Generating subquestions...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 10 attempts remaining. Retrying...
+Generated subquestions: ['\nWhat is the primary mechanism by which gene flow affects population genetics?\n']
+Failed to generate 5 subquestions. Generated 1 subquestions. 9 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 8 attempts remaining. Retrying...
+Generated subquestions: ['\nWhat is the effect of gene flow on the genetic diversity within a metapopulation?\n']
+Failed to generate 5 subquestions. Generated 1 subquestions. 7 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 6 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 5 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 4 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 3 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 2 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 1 attempts remaining. Retrying...
+/home/tpi/Documents/github_saram/PotemkinBenchmark_Reproducibility/AutomaticEval/utils.py:8: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+  0%|          | 0/10 [00:00<?, ?it/s]`torch_dtype` is deprecated! Use `dtype` instead!
+
+  0%|          | 0/10 [00:44<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/tpi/Documents/github_saram/PotemkinBenchmark_Reproducibility/AutomaticEval/main.py", line 104, in <module>
+    raise ValueError("Failed to generate any subquestions after multiple attempts.")
+ValueError: Failed to generate any subquestions after multiple attempts.

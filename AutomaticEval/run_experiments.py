@@ -3,7 +3,7 @@ import subprocess
 from tqdm import tqdm
 
 # Define the arguments for the runs
-models = ["Qwen/Qwen2.5-0.5B-Instruct"]
+models = ["Llama-3.1-8B-Instruct"]
 benchmarks = ["bbh", "mmlu"]
 num_runs = 5
 
