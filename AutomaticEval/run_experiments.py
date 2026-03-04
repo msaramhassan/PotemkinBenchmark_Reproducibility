@@ -3,9 +3,9 @@ import subprocess
 from tqdm import tqdm
 
 # Define the arguments for the runs
-models = ["meta-llama/Llama-3.2-3B-Instruct"]
+models = ["Mohammedxo51/llama-3.3-70b-q4"]
 benchmarks = ["bbh", "mmlu"]
-num_runs = 5
+num_runs = 1
 
 # Create a directory to store results
 results_dir = "experiment_results"

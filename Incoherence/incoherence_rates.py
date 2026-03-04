@@ -14,7 +14,7 @@ def compute_accuracy_and_se(count_correct: int, n: int):
 def print_incoherence_by_model(csv_path: str = "./inferences/coherence_results.csv"):
     """
     Incoherence rate = 2*(1 − accuracy), expressed as a percentage.
-    Prints ±2×SE with raw counts in their own aligned column, for each model and one Overall row.
+    Prints ±2xSE with raw counts in their own aligned column, for each model and one Overall row.
     """
     # 1) Load & filter out unwanted rows
     df = pd.read_csv(csv_path)
