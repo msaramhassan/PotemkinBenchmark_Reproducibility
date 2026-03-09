@@ -4,7 +4,7 @@ from tqdm import tqdm
 
 # Define the arguments for the runs
 # models = ["Mohammedxo51/llama-3.3-70b-q4"]
-models = ["deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"]
+models = ["meta-llama/Llama-3.1-70B-Instruct"]
 benchmarks = ["bbh", "mmlu"]
 num_runs = 1
 
