@@ -16,27 +16,44 @@ from google.api_core.exceptions import ResourceExhausted
 _local_model = None
 _local_tokenizer = None
 _local_model_name = None
+_local_processor = None  # used for VL models
+
+def _is_vl_config(model_name):
+    """Return True if the model uses a vision-language config (e.g. Qwen2VL)."""
+    from transformers import AutoConfig
+    config = AutoConfig.from_pretrained(model_name)
+    config_class = type(config).__name__
+    return "VL" in config_class or config_class.endswith("VLConfig")
 
 def load_local_model(model_name):
     """Load a local model using transformers. Caches the model to avoid reloading."""
-    global _local_model, _local_tokenizer, _local_model_name
+    global _local_model, _local_tokenizer, _local_model_name, _local_processor
     
     if _local_model is not None and _local_model_name == model_name:
         return _local_model, _local_tokenizer
     
-    from transformers import AutoModelForCausalLM, AutoTokenizer
     import torch
     
     print(f"Loading local model: {model_name}")
-    _local_tokenizer = AutoTokenizer.from_pretrained(model_name)
-    _local_model = AutoModelForCausalLM.from_pretrained(
-        model_name,
-        device_map="auto",
-        torch_dtype=torch.float16,
-    )
-    
-    if _local_tokenizer.pad_token is None:
-        _local_tokenizer.pad_token = _local_tokenizer.eos_token
+
+    if _is_vl_config(model_name):
+        from transformers import Qwen2VLForConditionalGeneration, AutoProcessor
+        _local_processor = AutoProcessor.from_pretrained(model_name)
+        _local_model = Qwen2VLForConditionalGeneration.from_pretrained(
+            model_name, torch_dtype="auto", device_map="auto"
+        )
+        _local_tokenizer = _local_processor.tokenizer
+    else:
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+        _local_processor = None
+        _local_tokenizer = AutoTokenizer.from_pretrained(model_name)
+        _local_model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            device_map="auto",
+            torch_dtype=torch.float16,
+        )
+        if _local_tokenizer.pad_token is None:
+            _local_tokenizer.pad_token = _local_tokenizer.eos_token
     
     _local_model_name = model_name
     print(f"Model loaded successfully. Device map: {_local_model.hf_device_map}")
@@ -48,41 +65,58 @@ def generate_local_inference(prompt, model_name, max_new_tokens=1024):
     import torch
     
     model, tokenizer = load_local_model(model_name)
-    
-    if hasattr(tokenizer, 'apply_chat_template') and tokenizer.chat_template is not None:
-        messages = [{"role": "user", "content": prompt}]
-        formatted_prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+
+    if _local_processor is not None:
+        # VL model path (text-only input)
+        messages = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
+        text = _local_processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        inputs = _local_processor(text=[text], padding=True, return_tensors="pt").to(model.device)
+        with torch.no_grad():
+            generated_ids = model.generate(**inputs, max_new_tokens=max_new_tokens)
+        generated_ids_trimmed = [
+            out_ids[len(in_ids):] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
+        ]
+        response = _local_processor.batch_decode(
+            generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
+        )[0]
     else:
-        formatted_prompt = prompt
-    
-    inputs = tokenizer(formatted_prompt, return_tensors="pt").to(model.device)
-    
-    with torch.no_grad():
-        outputs = model.generate(
-            **inputs,
-            max_new_tokens=max_new_tokens,
-            do_sample=True,
-            temperature=0.7,
-            top_p=0.9,
-            pad_token_id=tokenizer.pad_token_id,
-        )
-    
-    response = tokenizer.decode(outputs[0][inputs['input_ids'].shape[1]:], skip_special_tokens=True)
+        # Standard causal LM path
+        if hasattr(tokenizer, 'apply_chat_template') and tokenizer.chat_template is not None:
+            messages = [{"role": "user", "content": prompt}]
+            formatted_prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        else:
+            formatted_prompt = prompt
+
+        inputs = tokenizer(formatted_prompt, return_tensors="pt").to(model.device)
+
+        with torch.no_grad():
+            outputs = model.generate(
+                **inputs,
+                max_new_tokens=max_new_tokens,
+                do_sample=True,
+                temperature=0.7,
+                top_p=0.9,
+                pad_token_id=tokenizer.pad_token_id,
+            )
+
+        response = tokenizer.decode(outputs[0][inputs['input_ids'].shape[1]:], skip_special_tokens=True)
+
     return response
 
 
-models_to_developer = {"meta-llama/Llama-3.3-70B-Instruct-Turbo": "together",
+models_to_developer = {
+    # "meta-llama/Llama-3.3-70B-Instruct-Turbo": "together",
           "gpt-4o": "openai",
-          "gpt-4.5-preview": "openai",
-          "o3-mini": "openai",
-          "o1-mini": "openai",
-          "gemini-2.0-flash-exp": "gemini",
-          "claude-3-5-sonnet-20241022": "claude",
-          "mistralai/Mistral-7B-Instruct-v0.2": "together",
-          "deepseek-ai/DeepSeek-V3": "together",
-          "deepseek-ai/DeepSeek-R1": "together",
-          "Qwen/Qwen2-VL-72B-Instruct": "together",
-          "Qwen/Qwen2-72B-Instruct": "together",
+        #   "gpt-4.5-preview": "openai",
+        #   "o3-mini": "openai",
+        #   "o1-mini": "openai",
+        #   "gemini-2.0-flash-exp": "gemini",
+        #   "claude-3-5-sonnet-20241022": "claude",
+        #   "mistralai/Mistral-7B-Instruct-v0.2": "together",
+        #   "deepseek-ai/DeepSeek-V3": "together",
+        #   "deepseek-ai/DeepSeek-R1": "together",
+        #   "Qwen/Qwen2-VL-72B-Instruct": "together",
+        #   "Qwen/Qwen2-72B-Instruct": "together",
 }
 
 models = list(models_to_developer.keys())

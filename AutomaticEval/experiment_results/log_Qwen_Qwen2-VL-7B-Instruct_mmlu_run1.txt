@@ -1,0 +1,365 @@
+
+==============================
+Starting experiment with model: Qwen/Qwen2-VL-7B-Instruct
+Benchmark: mmlu
+Number of subquestions: 5
+Number of trials: 10
+==============================
+
+
+------------------------------
+Starting trial 1/10
+------------------------------
+
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/sociology_test.csv
+Sampled question: White-collar crime is low in visibility because:
+A. it involves only small amounts of money
+B. the proletariat can outsmart the bourgeoisie
+C. the police turn a blind eye to corporate crime
+D. it goes undetected in the context of everyday business transactions
+
+Checking if question relies on a concept...
+Loading local model: Qwen/Qwen2-VL-7B-Instruct
+Model loaded successfully. Device map: {'model.visual': 0, 'model.language_model.embed_tokens': 0, 'model.language_model.layers.0': 0, 'model.language_model.layers.1': 0, 'model.language_model.layers.2': 0, 'model.language_model.layers.3': 0, 'model.language_model.layers.4': 0, 'model.language_model.layers.5': 0, 'model.language_model.layers.6': 0, 'model.language_model.layers.7': 0, 'model.language_model.layers.8': 0, 'model.language_model.layers.9': 0, 'model.language_model.layers.10': 0, 'model.language_model.layers.11': 1, 'model.language_model.layers.12': 1, 'model.language_model.layers.13': 1, 'model.language_model.layers.14': 1, 'model.language_model.layers.15': 1, 'model.language_model.layers.16': 1, 'model.language_model.layers.17': 1, 'model.language_model.layers.18': 1, 'model.language_model.layers.19': 1, 'model.language_model.layers.20': 1, 'model.language_model.layers.21': 1, 'model.language_model.layers.22': 1, 'model.language_model.layers.23': 1, 'model.language_model.layers.24': 1, 'model.language_model.layers.25': 1, 'model.language_model.layers.26': 1, 'model.language_model.layers.27': 1, 'model.language_model.norm': 1, 'model.language_model.rotary_emb': 1, 'lm_head': 1}
+Concept classification: True Concept: Visibility
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/philosophy_test.csv
+Sampled question: The systematic use of critical reasoning to try to find answers to fundamental questions about reality, morality, and knowledge is called _____.
+A. the argumentative method
+B. the philosophical method
+C. propositional logic
+D. syllogistic reasoning
+
+Checking if question relies on a concept...
+Concept classification: True Concept: the philosophical method
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/computer_security_test.csv
+Sampled question: How does a buffer overflow on the stack facilitate running attacker-injected code?
+A. By overwriting the return address to point to the location of that code
+B. By writing directly to the instruction pointer register the address of the code
+C. By writing directly to %eax the address of the code
+D. By changing the name of the running executable, stored on the stack
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Buffer Overflow
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/computer_security_test.csv
+Sampled question: Which of the following is a remote Trojan?
+A. Troya
+B. DaCryptic
+C. BankerA
+D. Game-Troj
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Remote Trojan
+
+Checking if question is answered correctly...
+Answer correct: True
+
+Generating subquestions...
+Generated subquestions: ['Which of the following is a remote Trojan?', 'Write an instance of a remote Trojan.', 'Write an example that is NOT a remote Trojan.', 'Write an example that is close but still NOT a remote Trojan.', 'Generate an example of a remote Trojan, given the constraint that it must involve a mobile device.', 'Generate an example of something that is NOT an example of a remote Trojan, given the constraint that it must involve a physical device.', 'Edit the following instance of a remote Trojan so that it no longer qualifies as that concept: "A remote Trojan that steals sensitive information from a user\'s computer." ', 'Edit the following instance of a remote Trojan so that it now qualifies as that concept: "A remote Trojan that only affects desktop computers." ', 'Mask out part of the following instance of a remote Trojan and ask for the text that could replace the blank to make the result a false instance of the concept: "A remote Trojan that steals sensitive information from a user\'s computer." ', 'Mask out part of the following instance of a remote Trojan and ask for the text that could replace the blank to make the result a true instance of the concept: "A remote Trojan that steals sensitive information from a user\'s computer." ']
+
+Processing subquestions...
+
+Processing subquestion 1/5: Generate an example of something that is NOT an example of a remote Trojan, given the constraint that it must involve a physical device.
+Extracted answer: A physical device that is not an example of a remote Trojan is a standalone printer. A standalone printer is a device that is connected to a computer via a USB cable or Wi-Fi, and it is used to print documents or images. It does not have the capability to connect to the internet or to be controlled remotely by a hacker.
+
+Editing answer to introduce/remove errors...
+Answer with error: A physical device that is not an example of a remote Trojan is a standalone printer. A standalone printer is a device that is connected to a computer via a USB cable or Wi-Fi, and it is used to print documents or images. It does not have the capability to connect to the internet or to be controlled remotely by a hacker. However, it is worth noting that a printer can still be vulnerable to other types of cyber attacks, such as malware or firmware vulnerabilities.
+
+Starting self-grading...
+
+Grading answer 1/2: A physical device that is not an example of a remote Trojan is a standalone printer. A standalone printer is a device that is connected to a computer via a USB cable or Wi-Fi, and it is used to print documents or images. It does not have the capability to connect to the internet or to be controlled remotely by a hacker.
+Judge answer: 
+
+Grading answer 2/2: A physical device that is not an example of a remote Trojan is a standalone printer. A standalone printer is a device that is connected to a computer via a USB cable or Wi-Fi, and it is used to print documents or images. It does not have the capability to connect to the internet or to be controlled remotely by a hacker. However, it is worth noting that a printer can still be vulnerable to other types of cyber attacks, such as malware or firmware vulnerabilities.
+Judge answer: 
+
+Processing subquestion 2/5: Which of the following is a remote Trojan?
+Extracted answer: Zeus Trojan.
+
+Editing answer to introduce/remove errors...
+Answer with error: Zeus Trojan.
+
+Starting self-grading...
+
+Grading answer 1/2: Zeus Trojan.
+Judge answer: correct
+
+Grading answer 2/2: Zeus Trojan.
+Judge answer: correct
+
+Processing subquestion 3/5: Write an instance of a remote Trojan.
+Extracted answer: 
+
+Editing answer to introduce/remove errors...
+Answer with error: A remote Trojan is a malicious software that can be used to gain unauthorized access to a computer system. It typically works by exploiting vulnerabilities in the system's software or hardware, and then using this access to steal sensitive information or control the system remotely. An example of a remote Trojan could be a malware program that is designed to steal financial information from a user's bank account, or a program that is used to control a user's computer remotely without their knowledge or consent.
+
+Starting self-grading...
+
+Grading answer 1/2: 
+Judge answer: Incorrect
+
+Grading answer 2/2: A remote Trojan is a malicious software that can be used to gain unauthorized access to a computer system. It typically works by exploiting vulnerabilities in the system's software or hardware, and then using this access to steal sensitive information or control the system remotely. An example of a remote Trojan could be a malware program that is designed to steal financial information from a user's bank account, or a program that is used to control a user's computer remotely without their knowledge or consent.
+Judge answer: 
+
+Processing subquestion 4/5: Edit the following instance of a remote Trojan so that it no longer qualifies as that concept: "A remote Trojan that steals sensitive information from a user's computer." 
+Extracted answer: 
+
+Editing answer to introduce/remove errors...
+Answer with error: 
+
+Starting self-grading...
+
+Grading answer 1/2: 
+Judge answer: Correct
+
+Grading answer 2/2: 
+Judge answer: Correct
+
+Processing subquestion 5/5: Write an example that is NOT a remote Trojan.
+Extracted answer: 
+
+Editing answer to introduce/remove errors...
+Answer with error: A remote access trojan (RAT) is a type of malware that allows an attacker to remotely control a victim's computer. An example of a remote access trojan (RAT) is a remote access trojan (RAT), which is a type of malware that allows an attacker to remotely control a victim's computer.
+
+Starting self-grading...
+
+Grading answer 1/2: 
+Judge answer: 
+
+Grading answer 2/2: A remote access trojan (RAT) is a type of malware that allows an attacker to remotely control a victim's computer. An example of a remote access trojan (RAT) is a remote access trojan (RAT), which is a type of malware that allows an attacker to remotely control a victim's computer.
+Judge answer: incorrect
+
+Calculating Potemkin rate...
+
+------------------------------
+Starting trial 2/10
+------------------------------
+
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/college_biology_test.csv
+Sampled question: The ability of the brain to detect differences in stimulus intensity is best explained by the fact that which of the following varies with the stimulus intensity?
+A. The amplitude of the action potential
+B. The threshold potential
+C. The number of action potentials per second
+D. The number of synapses crossed
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Action Potential
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/astronomy_test.csv
+Sampled question: Why can't we see the Sun's corona except during total solar eclipses?
+A. The corona is made up mostly of charged particles which aren't luminous.
+B. It's much too cool to emit visible light
+C. We can't see magnetic fields
+D. It's too diffuse
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Total solar eclipse
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/formal_logic_test.csv
+Sampled question:  Use indirect truth tables to determine whether each set of propositions is consistent. If the set is consistent, choose an option with a consistent valuation. (There may be other consistent valuations.)
+A ⊃ (~B ∨ C)
+C ⊃ D
+A ∨ (B · ~D)
+A ≡ (B ⊃ D)
+A. Inconsistent
+B. Consistent. Consistent valuation when A and D are true and B and C are false
+C. Consistent. Consistent valuation when A, B, and D are true and C is false
+D. Consistent. Consistent valuation when C and D are true and A and B are false
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Indirect truth tables
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/high_school_european_history_test.csv
+Sampled question: This question refers to the following information.
+Read the documents below.
+Source 1
+If then by the Use of Machines, the Manufacture of Cotton, an Article which we import, and are supplied with from other Countries, and which can everywhere be procured on equal Terms, has met with such amazing Success, may not greater Advantages be reasonably expected from cultivating to the utmost the Manufacture of Wool, the Produce of our own Island, an Article in Demand in all Countries, almost the universal Clothing of Mankind?
+In the Manufacture of Woollens, the Scribbling Mill, the Spinning Frame, and the Fly Shuttle, have reduced manual Labour nearly One third, and each of them at its-first Introduction carried an Alarm to the Work People, yet each has contributed to advance the Wages and to increase the Trade, so that if an Attempt was now made to deprive us of the Use of them, there is no Doubt, but every Person engaged in the Business, would exert himself to defend them.
+—Statement by the Cloth Merchants of Leeds, 1791
+Source 2
+Come, cropper lads of high renown,
+Who love to drink good ale that's brown,
+And strike each haughty tyrant down,
+With hatchet, pike, and gun!
+Oh, the cropper lads for me,
+The gallant lads for me,
+Who with lusty stroke,
+The shear frames broke,
+The cropper lads for me!
+What though the specials still advance,
+And soldiers nightly round us prance;
+The cropper lads still lead the dance,
+With hatchet, pike, and gun!
+Oh, the cropper lads for me,
+The gallant lads for me,
+Who with lusty stroke
+The shear frames broke,
+The cropper lads for me!
+—Luddite Song, The Cropper's Song, c. 1812
+Which of the following best describes the governmental reactions to complaints such as those seen in Source 2 before 1850?
+A. Governments did little to address problems of industrialization before 1850.
+B. Reform movements led to the creation of regulations on work hours and ages and gender of workers.
+C. The implementation of running water and sewers was begun in England.
+D. The government created a national health-care system.
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Luddite movement
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/high_school_chemistry_test.csv
+Sampled question: 0.25 mol of a weak, monoprotic acid is dissolved in 0.25 L of distilled water. The pH was then measured as 4.26. What is the pKa of this weak acid?
+A. 4.26
+B. 8.52
+C. 7.52
+D. 3.66
+
+Checking if question relies on a concept...
+Concept classification: False Concept: None
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/professional_medicine_test.csv
+Sampled question: A 65-year-old female is admitted to the hospital after experiencing aphasia and right-sided hemiparesis. She subsequently develops urinary incontinence. There is no evidence of urinary tract infection and no prior history of urinary pathology. The most likely diagnosis is
+A. autonomic neurogenic bladderv
+B. motor paralytic bladder
+C. reflex neurogenic bladder
+D. uninhibited neurogenic bladder
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Neurogenic bladder
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/college_computer_science_test.csv
+Sampled question: Which of the following statements about datagrams sent by a node in a network using IPv4 protocol is (are) true?
+I. Datagrams at the source must be the size of the smallest maximum transmission unit (MTU) of all the links on a path to the destination.
+II. Datagrams may be fragmented during routing.
+III. Datagrams are reassembled only at the destination.
+A. I only
+B. II only
+C. III only
+D. II and III
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Network Protocols and Datagram Handling
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/anatomy_test.csv
+Sampled question: Which of the following anatomical regions of abdomen lies just distal to the sternum?
+A. Epigastric
+B. Hypochondriac
+C. Hypogastric
+D. Lumbar
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Anatomy
+
+Checking if question is answered correctly...
+Answer correct: True
+
+Generating subquestions...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 10 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 9 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 8 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 7 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 6 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 5 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 4 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 3 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 2 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 1 attempts remaining. Retrying...
+/home/tpi/Documents/github_saram/PotemkinBenchmark_Reproducibility/AutomaticEval/utils.py:8: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+  0%|          | 0/10 [00:00<?, ?it/s]The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+`torch_dtype` is deprecated! Use `dtype` instead!
+
+
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s][A
+
+Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:01,  2.48it/s][A
+
+Loading checkpoint shards:  40%|████      | 2/5 [00:00<00:01,  2.01it/s][A
+
+Loading checkpoint shards:  60%|██████    | 3/5 [00:05<00:04,  2.43s/it][A
+
+Loading checkpoint shards:  80%|████████  | 4/5 [00:10<00:03,  3.34s/it][A
+
+Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.61s/it][A
+Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.35s/it]
+
+
+Subquestions:   0%|          | 0/5 [00:00<?, ?it/s][A
+
+Subquestions:  20%|██        | 1/5 [00:09<00:38,  9.51s/it][A
+
+Subquestions:  40%|████      | 2/5 [00:19<00:30, 10.04s/it][A
+
+Subquestions:  60%|██████    | 3/5 [00:29<00:19,  9.86s/it][A
+
+Subquestions:  80%|████████  | 4/5 [00:40<00:10, 10.40s/it][A
+
+Subquestions: 100%|██████████| 5/5 [00:57<00:00, 12.72s/it][A
+Subquestions: 100%|██████████| 5/5 [00:57<00:00, 11.52s/it]
+
+Model: Qwen/Qwen2-VL-7B-Instruct Potemkin rate (lower bound): 1.00 (0.00). :   0%|          | 0/10 [01:55<?, ?it/s]
+Model: Qwen/Qwen2-VL-7B-Instruct Potemkin rate (lower bound): 1.00 (0.00). :  10%|█         | 1/10 [01:55<17:18, 115.43s/it]
+Model: Qwen/Qwen2-VL-7B-Instruct Potemkin rate (lower bound): 1.00 (0.00). :  10%|█         | 1/10 [04:48<43:16, 288.55s/it]
+Traceback (most recent call last):
+  File "/home/tpi/Documents/github_saram/PotemkinBenchmark_Reproducibility/AutomaticEval/main.py", line 104, in <module>
+    raise ValueError("Failed to generate any subquestions after multiple attempts.")
+ValueError: Failed to generate any subquestions after multiple attempts.
