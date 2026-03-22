@@ -15,12 +15,10 @@ from private.models import api_keys
 from prompts import contains_concept_prompt, subquestion_generation_prompt
 
 # ---------------------------------------------------------------------------
-# Local model cache (avoids reloading between calls)
+# Local model cache — keyed by model name, holds all models simultaneously
+# to avoid costly reloads when alternating between responder and judge.
 # ---------------------------------------------------------------------------
-_local_model = None
-_local_tokenizer = None
-_local_model_name = None
-_local_processor = None  # used for VL models
+_model_cache: dict = {}  # model_name -> {"model": ..., "tokenizer": ..., "processor": ...}
 
 
 def _is_vl_config(model_name):
@@ -32,11 +30,13 @@ def _is_vl_config(model_name):
 
 
 def load_local_model(model_name):
-    """Load a local model using transformers. Caches the model to avoid reloading."""
-    global _local_model, _local_tokenizer, _local_model_name, _local_processor
+    """Load a local model using transformers. Caches ALL loaded models by name
+    so switching between responder and judge never triggers a reload."""
+    global _model_cache
 
-    if _local_model is not None and _local_model_name == model_name:
-        return _local_model, _local_tokenizer
+    if model_name in _model_cache:
+        entry = _model_cache[model_name]
+        return entry["model"], entry["tokenizer"]
 
     import torch
 
@@ -44,27 +44,26 @@ def load_local_model(model_name):
 
     if _is_vl_config(model_name):
         from transformers import Qwen2VLForConditionalGeneration, AutoProcessor
-        _local_processor = AutoProcessor.from_pretrained(model_name)
-        _local_model = Qwen2VLForConditionalGeneration.from_pretrained(
-            model_name, torch_dtype="auto", device_map="auto"
+        processor = AutoProcessor.from_pretrained(model_name)
+        model = Qwen2VLForConditionalGeneration.from_pretrained(
+            model_name, dtype="auto", device_map="auto"
         )
-        _local_tokenizer = _local_processor.tokenizer
+        tokenizer = processor.tokenizer
     else:
         from transformers import AutoModelForCausalLM, AutoTokenizer
-        _local_processor = None
-        _local_tokenizer = AutoTokenizer.from_pretrained(model_name)
-        _local_model = AutoModelForCausalLM.from_pretrained(
+        processor = None
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+        model = AutoModelForCausalLM.from_pretrained(
             model_name,
             device_map="auto",
-            # torch_dtype=torch.float16,
-            torch_dtype="auto",
+            torch_dtype=torch.float16,
         )
-        if _local_tokenizer.pad_token is None:
-            _local_tokenizer.pad_token = _local_tokenizer.eos_token
+        if tokenizer.pad_token is None:
+            tokenizer.pad_token = tokenizer.eos_token
 
-    _local_model_name = model_name
-    print(f"Model loaded successfully. Device map: {_local_model.hf_device_map}")
-    return _local_model, _local_tokenizer
+    _model_cache[model_name] = {"model": model, "tokenizer": tokenizer, "processor": processor}
+    print(f"Model loaded successfully. Device map: {model.hf_device_map}")
+    return model, tokenizer
 
 
 def generate_local_inference(prompt, model_name, max_new_tokens=1024):
@@ -72,18 +71,19 @@ def generate_local_inference(prompt, model_name, max_new_tokens=1024):
     import torch
 
     model, tokenizer = load_local_model(model_name)
+    processor = _model_cache[model_name]["processor"]
 
-    if _local_processor is not None:
+    if processor is not None:
         # VL model path (text-only input)
         messages = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
-        text = _local_processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-        inputs = _local_processor(text=[text], padding=True, return_tensors="pt").to(model.device)
+        text = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        inputs = processor(text=[text], padding=True, return_tensors="pt").to(model.device)
         with torch.no_grad():
             generated_ids = model.generate(**inputs, max_new_tokens=max_new_tokens)
         generated_ids_trimmed = [
             out_ids[len(in_ids):] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
         ]
-        response = _local_processor.batch_decode(
+        response = processor.batch_decode(
             generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
         )[0]
     else:
