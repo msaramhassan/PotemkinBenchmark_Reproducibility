@@ -1,7 +1,7 @@
 import json
 import os
 from datetime import datetime
-from typing import Optional, List, Any
+from typing import List
 
 class ExperimentLogger:
     """Logger for structured JSON output of pipeline stages."""

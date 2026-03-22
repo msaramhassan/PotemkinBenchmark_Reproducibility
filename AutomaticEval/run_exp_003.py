@@ -25,6 +25,7 @@ Run from inside AutomaticEval/:
     python run_exp_003.py [--skip_existing]
 """
 import argparse
+import json
 import os
 import subprocess
 from tqdm import tqdm
@@ -67,7 +68,6 @@ MODEL_METADATA = {
     "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo":        {"family": "Llama",       "reasoning": False, "scale_B": 8},
 }
 
-import json
 meta_path = os.path.join(RESULTS_DIR, "model_metadata.json")
 with open(meta_path, "w") as fh:
     json.dump(MODEL_METADATA, fh, indent=2)
