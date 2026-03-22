@@ -1,0 +1,584 @@
+
+==============================
+Starting experiment with model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+Benchmark: mmlu
+Number of subquestions: 5
+Number of trials: 10
+==============================
+
+
+------------------------------
+Starting trial 1/10
+------------------------------
+
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/high_school_psychology_test.csv
+Sampled question: A nonprofit environmental group includes a free gift of address labels in a letter asking for contributions. Which social psychological principle is the nonprofit group trying to use to increase contributions?
+A. self-fulfilling prophecy
+B. stable attribution
+C. compliance strategy
+D. fundamental attribution error
+
+Checking if question relies on a concept...
+Loading local model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+Model loaded successfully. Device map: {'model.embed_tokens': 0, 'model.layers.0': 0, 'model.layers.1': 0, 'model.layers.2': 0, 'model.layers.3': 0, 'model.layers.4': 0, 'model.layers.5': 0, 'model.layers.6': 0, 'model.layers.7': 0, 'model.layers.8': 0, 'model.layers.9': 0, 'model.layers.10': 0, 'model.layers.11': 0, 'model.layers.12': 1, 'model.layers.13': 1, 'model.layers.14': 1, 'model.layers.15': 1, 'model.layers.16': 1, 'model.layers.17': 1, 'model.layers.18': 1, 'model.layers.19': 1, 'model.layers.20': 1, 'model.layers.21': 1, 'model.layers.22': 1, 'model.layers.23': 1, 'model.layers.24': 1, 'model.layers.25': 1, 'model.layers.26': 1, 'model.layers.27': 1, 'model.norm': 1, 'model.rotary_emb': 1, 'lm_head': 1}
+Concept classification: True Concept: compliance strategy
+
+Checking if question is answered correctly...
+Answer correct: True
+
+Generating subquestions...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 10 attempts remaining. Retrying...
+Generated subquestions: ['\nA local business is running a promotional campaign where employees are given gift cards to use at the store. The business claims that using the gift cards will encourage others to join their loyalty program. Which social psychological principle is the business using to motivate customers?\n', '\nA restaurant offers free samples of their new menu items to customers who sign up for their loyalty program. The restaurant argues that by providing these samples, they are encouraging customers to try their new offerings. What principle is the restaurant using to increase participation in the loyalty program?\n', '\nA community center organizes a clean-up event and offers free eco-friendly trash bags to participants. The center claims that by providing these trash bags, they are encouraging more people to join future clean-up events. What social psychological principle is the center using to increase attendance at their events?\n', '\nA school is hosting a charity event where students are asked to bring in canned goods for donation. The school states that by encouraging students to bring in cans, they are promoting a sense of community and collective responsibility. Which principle is the school using to increase contributions?\n', '\nA health clinic is distributing free reusable water bottles to patients as part of their wellness program. The clinic claims that by providing these bottles, they are encouraging patients to reduce their water consumption. What social psychological principle is the clinic using to increase water bottle usage?\n']
+
+Processing subquestions...
+
+Processing subquestion 1/5: 
+A restaurant offers free samples of their new menu items to customers who sign up for their loyalty program. The restaurant argues that by providing these samples, they are encouraging customers to try their new offerings. What principle is the restaurant using to increase participation in the loyalty program?
+
+Extracted answer: ** The restaurant is using the **encouragement effect**.
+
+Editing answer to introduce/remove errors...
+Answer with error: 
+
+Starting self-grading...
+
+Grading answer 1/2: ** The restaurant is using the **encouragement effect**.
+Judge answer: correct
+
+Grading answer 2/2: 
+Judge answer: 
+
+Processing subquestion 2/5: 
+A local business is running a promotional campaign where employees are given gift cards to use at the store. The business claims that using the gift cards will encourage others to join their loyalty program. Which social psychological principle is the business using to motivate customers?
+
+Extracted answer: ** Positive reinforcement.
+
+Editing answer to introduce/remove errors...
+Answer with error: 
+
+Starting self-grading...
+
+Grading answer 1/2: ** Positive reinforcement.
+Judge answer: 
+
+Grading answer 2/2: 
+Judge answer: correct
+
+Processing subquestion 3/5: 
+A community center organizes a clean-up event and offers free eco-friendly trash bags to participants. The center claims that by providing these trash bags, they are encouraging more people to join future clean-up events. What social psychological principle is the center using to increase attendance at their events?
+
+Extracted answer: ** The community center is using the principle of reciprocation.
+
+Editing answer to introduce/remove errors...
+Answer with error: 
+
+Starting self-grading...
+
+Grading answer 1/2: ** The community center is using the principle of reciprocation.
+Judge answer: correct
+
+Grading answer 2/2: 
+Judge answer: correct
+
+Processing subquestion 4/5: 
+A health clinic is distributing free reusable water bottles to patients as part of their wellness program. The clinic claims that by providing these bottles, they are encouraging patients to reduce their water consumption. What social psychological principle is the clinic using to increase water bottle usage?
+
+Extracted answer: ** The clinic is using the "compulsory giving" principle to increase water bottle usage.
+
+Editing answer to introduce/remove errors...
+Answer with error: **  
+The clinic is using the "compulsion effect" to increase water bottle usage.
+
+Starting self-grading...
+
+Grading answer 1/2: ** The clinic is using the "compulsory giving" principle to increase water bottle usage.
+Judge answer: correct
+
+Grading answer 2/2: **  
+The clinic is using the "compulsion effect" to increase water bottle usage.
+Judge answer: The clinic is using the "obedience effect" to increase water bottle usage.  
+Incorrect
+
+Processing subquestion 5/5: 
+A school is hosting a charity event where students are asked to bring in canned goods for donation. The school states that by encouraging students to bring in cans, they are promoting a sense of community and collective responsibility. Which principle is the school using to increase contributions?
+
+Extracted answer: ** The school is using the Group Incentive Principle.
+
+Editing answer to introduce/remove errors...
+Answer with error: ..."
+
+Putting it all together, the modified answer would be:
+
+"The school is using the Group Exchange Principle."
+
+I think this change is subtle enough that someone familiar with the principles might not catch it right away, but they know it's incorrect because the principles have specific focuses, and Group Exchange isn't about promoting community efforts through incentives but rather about internal exchanges within the group.
+</think>
+
+The school is using the Group Exchange Principle.
+
+**Step-by-Step Explanation:**
+
+1. **Identify the Original Principle:** The original answer correctly identifies the Group Incentive Principle, which involves motivating individuals through collective goals.
+
+2. **Choose a Similar but Incorrect Principle:** Replace "Group Incentive Principle" with "Group Exchange Principle," which is slightly different and subtly incorrect.
+
+3. **Ensure Coherence:** The modified answer maintains a clear explanation, justifying the change in terminology.
+
+4. **Conclude with Final Answer:** The final answer is concise and ends appropriately.
+
+---
+
+**Final Answer:** The school is using the Group Exchange Principle.
+
+Starting self-grading...
+
+Grading answer 1/2: ** The school is using the Group Incentive Principle.
+Judge answer: correct
+
+Grading answer 2/2: ..."
+
+Putting it all together, the modified answer would be:
+
+"The school is using the Group Exchange Principle."
+
+I think this change is subtle enough that someone familiar with the principles might not catch it right away, but they know it's incorrect because the principles have specific focuses, and Group Exchange isn't about promoting community efforts through incentives but rather about internal exchanges within the group.
+</think>
+
+The school is using the Group Exchange Principle.
+
+**Step-by-Step Explanation:**
+
+1. **Identify the Original Principle:** The original answer correctly identifies the Group Incentive Principle, which involves motivating individuals through collective goals.
+
+2. **Choose a Similar but Incorrect Principle:** Replace "Group Incentive Principle" with "Group Exchange Principle," which is slightly different and subtly incorrect.
+
+3. **Ensure Coherence:** The modified answer maintains a clear explanation, justifying the change in terminology.
+
+4. **Conclude with Final Answer:** The final answer is concise and ends appropriately.
+
+---
+
+**Final Answer:** The school is using the Group Exchange Principle.
+Judge answer: The answer is incorrect. The school is using the Group Incentive Principle.
+
+Calculating Potemkin rate...
+
+------------------------------
+Starting trial 2/10
+------------------------------
+
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/world_religions_test.csv
+Sampled question: What are the two sacraments that all Christians celebrate?
+A. Baptism and Eucharist
+B. Baptism and Ordination
+C. Eucharist and Marriage
+D. Eucharist and Confession
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Baptism and Eucharist
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/philosophy_test.csv
+Sampled question: Plato's suggestion that knowledge is innate or remembered as a result of being triggered by experience is in response to a paradox he sets up for himself.  The paradox, now referred to as Meno's Paradox, has to do with the question of:
+A. how a person can remember anything about the realm of the Forms after the shock of being born into this world.
+B. how knowledge of the Forms can ever be anything other than a generalization of experience.
+C. how anyone can recognize the correct answer to a question without already knowing the answer.
+D. how concepts bound to the realm of becoming have meaning only when associated with the realm of Being.
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Meno's Paradox
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/public_relations_test.csv
+Sampled question: Which of these sites offers 'microblogging?
+A. YouTube
+B. Facebook
+C. Wikipedia
+D. Twitter
+
+Checking if question relies on a concept...
+Concept classification: False Concept: Microblogging
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/security_studies_test.csv
+Sampled question: How can the origins of weak state insecurity be explained?
+A. Weak state insecurity in a historical framework of analysis represents an abnormal state in the long term state-building process. Bloody and violent conflict between social forces is not consistent with the presence of the centralizing force with the capacity to attain monopoly of control over violence.
+B. The utility of explaining weak state insecurity with a comparison to the historical conditions of state consolidation in Europe does not stand in the contemporary context of global society because of the pervasion of international norms to prevent violent conflict from manifesting in the consolidation process.
+C. The contemporary state-building condition is constrained by the shortened time-frame operating within the established guidelines of international norms, a particular problematic rule of which is sovereignty. Thus, unlike some European entities which could not complete the state-building process and were absorbed into more viable units, weak states will remain quasi entities.
+D. Weak state insecurity originated from the denial of sovereignty as the norm and the corresponding extension of the right to inviolability of statehood. Without protection under international laws the possibility of its national status being revoked and its territory being subsumed into another state threatens the consolidation of the state-building process.
+
+Checking if question relies on a concept...
+Concept classification: False Concept: Denial of Sovereignty
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/professional_law_test.csv
+Sampled question: An owner of an apartment building in a rundown section of town knew that one of his tenants was dealing drugs from his apartment. He also knew that the tenant's actions had led to some violent confrontations in the past, including one where a gun was discharged in the hallway outside the tenant's apartment. Because the tenant regularly paid his rent on time, the owner didn't take any action to try to evict the tenant. One day, a rival drug dealer drove by the tenant's apartment and fired his gun at the tenant's front window. One of the bullets passed through the tenant's living room and went through the wall into the apartment next door. The bullet struck and injured a neighbor who occupied the adjoining apartment. If the neighbor asserts a claim against the owner to recover damages for his injury, he should
+A. recover, because the owner knew that the tenant was dealing drugs from his apartment.
+B. recover, because the owner was aware that such danger existed because of the tenant's drug-dealing activities.
+C. not recover, because the owner is not liable for the criminal acts of third persons.
+D. not recover, because the neighbor is outside the zone of foreseeable danger.
+
+Checking if question relies on a concept...
+Concept classification: False Concept: None
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/us_foreign_policy_test.csv
+Sampled question: What is the structure of the United Nations Security Council?
+A. 5 permanent members with veto power, 10 rotating members with no veto power
+B. 5 permanent members and 10 rotating members, all with veto power
+C. 10 permanent members with veto power, and 5 rotating members without veto power
+D. 15 permanent members with veto power
+
+Checking if question relies on a concept...
+Concept classification: True Concept: United Nations Security Council
+
+Checking if question is answered correctly...
+Answer correct: True
+
+Generating subquestions...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 10 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 9 attempts remaining. Retrying...
+Generated subquestions: ['\nThe United Nations Security Council consists of five permanent members with veto power and ten rotating members without. Suppose a new council is proposed where there are six permanent members, each with veto power, and nine rotating members without. Is this new council structure valid according to the principles of the United Nations Security Council? Explain your reasoning, including how the structure would impact decision-making processes and the role of veto power in such a council.\n', '\nA new council is formed with 15 members, all of whom have veto power. Is this council similar to the United Nations Security Council? Explain why or why not, focusing on the roles of permanent and rotating members and the implications of having all members with veto power.\n', "\nImagine a council with five permanent members, each with veto power, and eleven rotating members without. Would this structure be considered a valid example of the United Nations Security Council? Explain your reasoning, including how the number of rotating members affects the council's operations and decision-making.\n", '\nCreate an example of a council structure similar to the United Nations Security Council, but with the following constraints: each member must have a unique identifier, and there must be exactly five members with veto power. Provide a detailed explanation of how this structure would function and how it compares to the actual United Nations Security Council.\n']
+Failed to generate 5 subquestions. Generated 4 subquestions. 8 attempts remaining. Retrying...
+Generated subquestions: ['\nConsider the poem "Ode to the United Nations Security Council" by Jane Doe. Classify the poem as either a correct representation of the United Nations Security Council\'s structure or an incorrect one, and explain why.\n', '\nImagine a fictional council called the "Global Governance Assembly" with 7 permanent members and 8 rotating members. All permanent members have veto power. Is this an accurate representation of the United Nations Security Council? Explain your reasoning.\n', '\nA new council, the "United Nations Stability Council," claims to have 5 permanent members and 10 rotating members. However, one of the permanent members is Germany, which is actually a rotating member. Is this council structurally correct? Justify your answer.\n', '\nWrite a song about the United Nations Security Council where the lyrics include the phrase "5 vowels in each line" and the structure has a repeating refrain about veto powers. Is your song a correct representation of the Security Council? Explain.\n', '\nCreate a scenario where the United Nations Security Council has 15 members with veto power. Is this possible? Explain your reasoning and discuss the implications of such a structure.\n']
+
+Processing subquestions...
+
+Processing subquestion 1/5: 
+Write a song about the United Nations Security Council where the lyrics include the phrase "5 vowels in each line" and the structure has a repeating refrain about veto powers. Is your song a correct representation of the Security Council? Explain.
+
+Extracted answer: 
+
+Editing answer to introduce/remove errors...
+Answer with error: ` followed by the modified answer, keeping the explanation clear and concise. I should also ensure that the overall response is coherent and that the subtle error doesn't detract from the answer's readability.
+
+Putting it all together, I'll adjust the relevant parts of the answer, ensuring that the error is there but not immediately obvious. I'll double-check that the song's structure and requirements are still clear and that the explanation makes sense after the change.
+</think>
+
+The song you describe is not correct because it includes a subtle error in the structure. Specifically, the phrase "quorum" should be "veto" in the line structure. Here's the modified answer:
+
+The song you describe is not correct because it includes a subtle error in the structure. Specifically, the phrase "quorum" should be "veto" in the line structure. The structure of the song has a repeating refrain about the Security Council’s veto. However, since the song does not actually include a repeating refrain about the Security Council’s veto, it is incorrect. It is incorrect because of the typo in "quorum" and its intended meaning as "veto."
+
+`FINAL ANSWER:` The song you describe is not correct because it includes a subtle error in the structure. Specifically, the phrase "quorum" should be "veto" in the line structure. The structure of the song has a repeating refrain about the Security Council’s veto. However, since the song does not actually include a repeating refrain about the Security Council’s veto, it is incorrect. It is incorrect because of the typo in "quorum" and its intended meaning as "veto."
+
+Starting self-grading...
+
+Grading answer 1/2: 
+Judge answer: incorrect
+
+Grading answer 2/2: ` followed by the modified answer, keeping the explanation clear and concise. I should also ensure that the overall response is coherent and that the subtle error doesn't detract from the answer's readability.
+
+Putting it all together, I'll adjust the relevant parts of the answer, ensuring that the error is there but not immediately obvious. I'll double-check that the song's structure and requirements are still clear and that the explanation makes sense after the change.
+</think>
+
+The song you describe is not correct because it includes a subtle error in the structure. Specifically, the phrase "quorum" should be "veto" in the line structure. Here's the modified answer:
+
+The song you describe is not correct because it includes a subtle error in the structure. Specifically, the phrase "quorum" should be "veto" in the line structure. The structure of the song has a repeating refrain about the Security Council’s veto. However, since the song does not actually include a repeating refrain about the Security Council’s veto, it is incorrect. It is incorrect because of the typo in "quorum" and its intended meaning as "veto."
+
+`FINAL ANSWER:` The song you describe is not correct because it includes a subtle error in the structure. Specifically, the phrase "quorum" should be "veto" in the line structure. The structure of the song has a repeating refrain about the Security Council’s veto. However, since the song does not actually include a repeating refrain about the Security Council’s veto, it is incorrect. It is incorrect because of the typo in "quorum" and its intended meaning as "veto."
+Judge answer: ` The song is incorrect because it does not accurately represent the UN Security Council. Specifically, it fails to account for the fact that only five members have veto power, not all members. Additionally, the structure of the Security Council includes a Council Council (CSCC) and ad hoc bodies, which are not mentioned in the song. Therefore, the song does not correctly reflect the real-world aspects of the UN Security Council.
+
+Processing subquestion 2/5: 
+A new council, the "United Nations Stability Council," claims to have 5 permanent members and 10 rotating members. However, one of the permanent members is Germany, which is actually a rotating member. Is this council structurally correct? Justify your answer.
+
+Extracted answer: ** The council is structurally incorrect because Germany is a rotating member, reducing the permanent members to 4 and increasing rotating members to 11, unlike the real Security Council.
+
+Editing answer to introduce/remove errors...
+Answer with error: 
+
+Starting self-grading...
+
+Grading answer 1/2: ** The council is structurally incorrect because Germany is a rotating member, reducing the permanent members to 4 and increasing rotating members to 11, unlike the real Security Council.
+Judge answer: The council is structurally incorrect because Germany is a rotating member, reducing the permanent members to 4 and increasing rotating members to 11, unlike the real Security Council.  
+Correct
+
+Grading answer 2/2: 
+Judge answer: incorrect
+
+Processing subquestion 3/5: 
+Create a scenario where the United Nations Security Council has 15 members with veto power. Is this possible? Explain your reasoning and discuss the implications of such a structure.
+
+Extracted answer: 
+
+Editing answer to introduce/remove errors...
+Answer with error: The United Nations Security Council consists of 15 members, each of whom holds the power to veto any resolution passed by the Council. However, only five of these members—the five permanent members of the Security Council—have the power to veto any resolution. The other ten members do not have the veto power, which is a key feature of the Council's decision-making process.
+
+Starting self-grading...
+
+Grading answer 1/2: 
+Judge answer: incorrect
+
+Grading answer 2/2: The United Nations Security Council consists of 15 members, each of whom holds the power to veto any resolution passed by the Council. However, only five of these members—the five permanent members of the Security Council—have the power to veto any resolution. The other ten members do not have the veto power, which is a key feature of the Council's decision-making process.
+Judge answer: correct
+
+Processing subquestion 4/5: 
+Imagine a fictional council called the "Global Governance Assembly" with 7 permanent members and 8 rotating members. All permanent members have veto power. Is this an accurate representation of the United Nations Security Council? Explain your reasoning.
+
+Extracted answer: No, the Global Governance Assembly does not accurately represent the United Nations Security Council because it has a different composition and decision-making structure.
+
+Editing answer to introduce/remove errors...
+Answer with error: 
+
+Starting self-grading...
+
+Grading answer 1/2: No, the Global Governance Assembly does not accurately represent the United Nations Security Council because it has a different composition and decision-making structure.
+Judge answer: correct
+
+Grading answer 2/2: 
+Judge answer: correct
+
+Processing subquestion 5/5: 
+Consider the poem "Ode to the United Nations Security Council" by Jane Doe. Classify the poem as either a correct representation of the United Nations Security Council's structure or an incorrect one, and explain why.
+
+Extracted answer: Correct
+
+Editing answer to introduce/remove errors...
+Answer with error: Incorrect. The poem mentions 15 elected member states instead of 10.
+
+Starting self-grading...
+
+Grading answer 1/2: Correct
+Judge answer: Correct
+
+Grading answer 2/2: Incorrect. The poem mentions 15 elected member states instead of 10.
+Judge answer: Incorrect. The poem incorrectly states there are 15 elected members, when only 10 are elected.
+
+Calculating Potemkin rate...
+
+------------------------------
+Starting trial 3/10
+------------------------------
+
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/college_medicine_test.csv
+Sampled question: Which of the following statements is false?
+A. Ammonia is produced in repeated high intensity exercise.
+B. Muscle lactate accumulation does not begin until at least 5 seconds of intermittent muscle contractions have taken place.
+C. Muscle phosphocreatine depletion begins in the first few seconds of high intensity exercise.
+D. With an increasing number of repeated sprints the rate of accumulation of lactate in muscle declines.
+
+Checking if question relies on a concept...
+Concept classification: False Concept: B
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/high_school_macroeconomics_test.csv
+Sampled question: Which of the following is true of money and financial markets?
+A. As the demand for bonds increases the interest rate increases.
+B. For a given money supply if nominal GDP increases the velocity of money decreases.
+C. When demand for stocks and bonds increases the asset demand for money falls.
+D. A macroeconomic recession increases the demand for loanable funds.
+
+Checking if question relies on a concept...
+Concept classification: False Concept: None
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/business_ethics_test.csv
+Sampled question: _______ economy is the term used to describe individuals being hired for a specific task rather than on a long-term basis. While this results in _________ which is beneficial for businesses, issues for those employed in such a manner relate to increased ________, uncertainty and a lack of _______.
+A. Gig, Flexibility, Risk, Social welfare structures
+B. Sharing, Risk, Flexibility, Autonomy
+C. Gig, Risk, Flexibility, Autonomy
+D. Sharing, Flexibility, Risk, Social welfare structures
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Gig economy
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/marketing_test.csv
+Sampled question: Which of the following processes is not fundamental in explaining how consumers think and learn about products and brands?
+A. Cognition.
+B. Perception.
+C. Learning.
+D. Personality.
+
+Checking if question relies on a concept...
+Concept classification: False Concept: Personality
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/marketing_test.csv
+Sampled question:  This is part of the communication process where receivers unpack the various components of the message, and begin to make sense and give the message meaning:
+A. Encoding.
+B. Decoding.
+C. Transfer.
+D. Noise.
+
+Checking if question relies on a concept...
+Concept classification: False Concept: Decoding
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/sociology_test.csv
+Sampled question: Role-learning theory suggests that
+A. we internalise and take on social roles from a pre-existing framework
+B. we create and negotiate our roles through interaction with others
+C. social roles are not fixed or stable but fluid and pluralistic
+D. roles have to be learned to suppress unconscious motivations
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Role Learning Theory
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/global_facts_test.csv
+Sampled question: Overall, the growth rate of average incomes in less developed countries between 1960 and 1995
+A. was approximately zero
+B. exceeded that of high income countries
+C. exceeded that of Britain during the industrial revolution
+D. was approximately 3.0% per year
+
+Checking if question relies on a concept...
+Concept classification: False Concept: None
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/miscellaneous_test.csv
+Sampled question: Who is the mythological Roman goddess of flowers?
+A. Diana
+B. Echo
+C. Flora
+D. Niobe
+
+Checking if question relies on a concept...
+Concept classification: False Concept: Flora
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/public_relations_test.csv
+Sampled question: Which of these activities might secondary research involve?
+A. Conducting a content analysis
+B. Conducting a survey
+C. Observing people
+D. Examining public records
+
+Checking if question relies on a concept...
+Concept classification: False Concept: None
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/clinical_knowledge_test.csv
+Sampled question: Fast-twitch fibres contain:
+A. a relatively large number of mitochondria and low ATPase activity.
+B. a relatively small number of mitochondria and low ATPase activity.
+C. a relatively small number of mitochondria and high ATPase activity.
+D. a relatively large number of mitochondria and high ATPase activity.
+
+Checking if question relies on a concept...
+Concept classification: False Concept: Fast-twitch fibres
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/computer_security_test.csv
+Sampled question: The stack is memory for storing
+A. Local variables
+B. Program code
+C. Dynamically linked libraries
+D. Global variables
+
+Checking if question relies on a concept...
+Concept classification: False Concept: Local variables
+
+Sampling question...
+Opening file: raw_data/benchmarks/mmlu/electrical_engineering_test.csv
+Sampled question: The resistance in the circuit of the moving coil of a dynamometer wattmeter should be
+A. Low.
+B. Very low.
+C. High.
+D. Almost zero.
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Dynamometer Wattmeter
+
+Checking if question is answered correctly...
+Answer correct: True
+
+Generating subquestions...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 10 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 9 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 8 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 7 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 6 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 5 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 4 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 3 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 2 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 1 attempts remaining. Retrying...
+/home/tpi/Documents/github_saram/PotemkinBenchmark_Reproducibility/AutomaticEval/utils.py:8: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+  0%|          | 0/10 [00:00<?, ?it/s]`torch_dtype` is deprecated! Use `dtype` instead!
+
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][A
+
+Loading checkpoint shards:  50%|█████     | 1/2 [00:20<00:20, 20.78s/it][A
+
+Loading checkpoint shards: 100%|██████████| 2/2 [00:42<00:00, 21.41s/it][A
+Loading checkpoint shards: 100%|██████████| 2/2 [00:42<00:00, 21.32s/it]
+
+
+Subquestions:   0%|          | 0/5 [00:00<?, ?it/s][A
+
+Subquestions:  20%|██        | 1/5 [01:16<05:05, 76.31s/it][A
+
+Subquestions:  40%|████      | 2/5 [02:58<04:34, 91.57s/it][A
+
+Subquestions:  60%|██████    | 3/5 [04:05<02:40, 80.38s/it][A
+
+Subquestions:  80%|████████  | 4/5 [05:21<01:18, 78.58s/it][A
+
+Subquestions: 100%|██████████| 5/5 [06:36<00:00, 77.32s/it][A
+Subquestions: 100%|██████████| 5/5 [06:36<00:00, 79.31s/it]
+
+Model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B Potemkin rate (lower bound): 0.67 (0.00). :   0%|          | 0/10 [08:57<?, ?it/s]
+Model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B Potemkin rate (lower bound): 0.67 (0.00). :  10%|█         | 1/10 [08:57<1:20:37, 537.48s/it]
+
+Subquestions:   0%|          | 0/5 [00:00<?, ?it/s][A
+
+Subquestions:  20%|██        | 1/5 [01:44<06:56, 104.07s/it][A
+
+Subquestions:  40%|████      | 2/5 [03:17<04:53, 97.79s/it] [A
+
+Subquestions:  60%|██████    | 3/5 [04:44<03:05, 92.84s/it][A
+
+Subquestions:  80%|████████  | 4/5 [06:02<01:26, 86.93s/it][A
+
+Subquestions: 100%|██████████| 5/5 [07:15<00:00, 81.97s/it][A
+Subquestions: 100%|██████████| 5/5 [07:15<00:00, 87.10s/it]
+
+Model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B Potemkin rate (lower bound): 0.76 (0.07). :  10%|█         | 1/10 [20:33<1:20:37, 537.48s/it]
+Model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B Potemkin rate (lower bound): 0.76 (0.07). :  20%|██        | 2/10 [20:33<1:24:04, 630.52s/it]
+Model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B Potemkin rate (lower bound): 0.76 (0.07). :  20%|██        | 2/10 [31:05<2:04:23, 932.93s/it]
+Traceback (most recent call last):
+  File "/home/tpi/Documents/github_saram/PotemkinBenchmark_Reproducibility/AutomaticEval/main.py", line 104, in <module>
+    raise ValueError("Failed to generate any subquestions after multiple attempts.")
+ValueError: Failed to generate any subquestions after multiple attempts.

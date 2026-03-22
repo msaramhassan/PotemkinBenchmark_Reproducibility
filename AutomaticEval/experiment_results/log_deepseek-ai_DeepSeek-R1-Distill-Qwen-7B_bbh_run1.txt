@@ -1,0 +1,185 @@
+
+==============================
+Starting experiment with model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+Benchmark: bbh
+Number of subquestions: 5
+Number of trials: 10
+==============================
+
+
+------------------------------
+Starting trial 1/10
+------------------------------
+
+
+Sampling question...
+Opening file: raw_data/benchmarks/bbh/logical_deduction_seven_objects.json
+Sampled question: The following paragraphs each describe a set of seven objects arranged in a fixed order. The statements are logically consistent within each paragraph. A fruit stand sells seven fruits: oranges, loquats, apples, kiwis, mangoes, plums, and peaches. The apples are the second-cheapest. The peaches are the cheapest. The plums are the fourth-most expensive. The loquats are the third-cheapest. The kiwis are more expensive than the mangoes. The oranges are less expensive than the mangoes.
+Options:
+(A) The oranges are the third-cheapest
+(B) The loquats are the third-cheapest
+(C) The apples are the third-cheapest
+(D) The kiwis are the third-cheapest
+(E) The mangoes are the third-cheapest
+(F) The plums are the third-cheapest
+(G) The peaches are the third-cheapest
+
+Checking if question relies on a concept...
+Loading local model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+Model loaded successfully. Device map: {'model.embed_tokens': 0, 'model.layers.0': 0, 'model.layers.1': 0, 'model.layers.2': 0, 'model.layers.3': 0, 'model.layers.4': 0, 'model.layers.5': 0, 'model.layers.6': 0, 'model.layers.7': 0, 'model.layers.8': 0, 'model.layers.9': 0, 'model.layers.10': 0, 'model.layers.11': 0, 'model.layers.12': 1, 'model.layers.13': 1, 'model.layers.14': 1, 'model.layers.15': 1, 'model.layers.16': 1, 'model.layers.17': 1, 'model.layers.18': 1, 'model.layers.19': 1, 'model.layers.20': 1, 'model.layers.21': 1, 'model.layers.22': 1, 'model.layers.23': 1, 'model.layers.24': 1, 'model.layers.25': 1, 'model.layers.26': 1, 'model.layers.27': 1, 'model.norm': 1, 'model.rotary_emb': 1, 'lm_head': 1}
+Concept classification: False Concept: Ordering based on given conditions
+
+Sampling question...
+Opening file: raw_data/benchmarks/bbh/navigate.json
+Sampled question: If you follow these instructions, do you return to the starting point? Always face forward. Take 10 steps right. Take 7 steps backward. Take 3 steps left. Take 8 steps backward. Take 3 steps backward. Take 8 steps right.
+Options:
+- Yes
+- No
+
+Checking if question relies on a concept...
+Concept classification: False Concept: None
+
+Sampling question...
+Opening file: raw_data/benchmarks/bbh/logical_deduction_three_objects.json
+Sampled question: The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. In a golf tournament, there were three golfers: Amy, Ada, and Joe. Joe finished below Ada. Amy finished above Ada.
+Options:
+(A) Amy finished first
+(B) Ada finished first
+(C) Joe finished first
+
+Checking if question relies on a concept...
+Concept classification: False Concept: Ordering based on relative positions
+
+Sampling question...
+Opening file: raw_data/benchmarks/bbh/date_understanding.json
+Sampled question: Jane was born on the last day of Feburary in 2000. Today is her 16-year-old birthday. What is the date one week from today in MM/DD/YYYY?
+Options:
+(A) 03/07/2016
+(B) 02/23/2016
+(C) 03/07/2070
+(D) 03/06/2016
+(E) 03/08/2016
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Date Calculation
+
+Checking if question is answered correctly...
+Answer correct: False
+
+Sampling question...
+Opening file: raw_data/benchmarks/bbh/disambiguation_qa.json
+Sampled question: In the following sentences, explain the antecedent of the pronoun (which thing the pronoun refers to), or state that it is ambiguous.
+Sentence: The visitor tells the teacher that they like the cake.
+Options:
+(A) The visitor likes the cake
+(B) The teacher likes the cake
+(C) Ambiguous
+
+Checking if question relies on a concept...
+Concept classification: False Concept: None
+
+Sampling question...
+Opening file: raw_data/benchmarks/bbh/word_sorting.json
+Sampled question: Sort the following words alphabetically: List: county quantify nail o'connell phony bauer poole venice accelerate nominee raisin putnam
+
+Checking if question relies on a concept...
+Concept classification: False Concept: " followed by the name. But in this case, the task was just to sort the words alphabetically, so I don't think a concept is needed here. The response should just be the sorted list and no concept.
+
+Sampling question...
+Opening file: raw_data/benchmarks/bbh/ruin_names.json
+Sampled question: Which of the following is a humorous edit of this artist or movie name: 'free willy'?
+Options:
+(A) frre willy
+(B) freeh willy
+(C) tree willy
+(D) frees willy
+
+Checking if question relies on a concept...
+Concept classification: False Concept: 
+
+Sampling question...
+Opening file: raw_data/benchmarks/bbh/salient_translation_error_detection.json
+Sampled question: The following translations from German to English contain a particular error. That error will be one of the following types: Named Entities: An entity (names, places, locations, etc.) is changed to a different entity. Numerical Values: Numerical values (ordinals or cardinals), dates, and/or units are changed. Modifiers or Adjectives: The modifiers and adjectives pertaining to a noun are changed. Negation or Antonyms: Introduce or remove a negation or change comparatives to their antonyms. Facts: Trivial factual errors not pertaining to the above classes are introduced in the translations. Dropped Content: A significant clause in the translation is removed. Please identify that error.  Source: Der Kölner Rosenmontagszug ist der größte Karnevalsumzug in Deutschland und der am Rosenmontag stattfindende Höhepunkt des Kölner Karnevals.
+Translation: The Cologne Rose Procession is the largest carnival parade in Germany and the highlight of the Cologne Carnival.
+The translation contains an error pertaining to
+Options:
+(A) Modifiers or Adjectives
+(B) Numerical Values
+(C) Negation or Antonyms
+(D) Named Entities
+(E) Dropped Content
+(F) Facts
+
+Checking if question relies on a concept...
+Concept classification: False Concept: None
+
+Sampling question...
+Opening file: raw_data/benchmarks/bbh/navigate.json
+Sampled question: If you follow these instructions, do you return to the starting point? Always face forward. Take 2 steps backward. Take 5 steps backward. Take 5 steps right. Take 9 steps right.
+Options:
+- Yes
+- No
+
+Checking if question relies on a concept...
+Concept classification: False Concept: None
+
+Sampling question...
+Opening file: raw_data/benchmarks/bbh/causal_judgement.json
+Sampled question: How would a typical person answer each of the following questions about causation?
+Long ago, when John was only 17 years old, he got a job working for a large manufacturing company. He started out working on an assembly line for minimum wage, but after a few years at the company, he was given a choice between two line manager positions. He could stay in the woodwork division, which is where he was currently working. Or he could move to the plastics division. John was unsure what to do because he liked working in the woodwork division, but he also thought it might be worth trying something different. He finally decided to switch to the plastics division and try something new. For the last 30 years, John has worked as a production line supervisor in the plastics division. After the first year there, the plastics division was moved to a different building with more space. Unfortunately, through the many years he worked there, John was exposed to asbestos, a highly carcinogenic substance. Most of the plastics division was quite safe, but the small part in which John worked was exposed to asbestos fibers. And now, although John has never smoked a cigarette in his life and otherwise lives a healthy lifestyle, he has a highly progressed and incurable case of lung cancer at the age of 50. John had seen three cancer specialists, all of whom confirmed the worst: that, except for pain, John's cancer was untreatable and he was absolutely certain to die from it very soon (the doctors estimated no more than 2 months). Yesterday, while John was in the hospital for a routine medical appointment, a new nurse accidentally administered the wrong medication to him. John was allergic to the drug and he immediately went into shock and experienced cardiac arrest (a heart attack). Doctors attempted to resuscitate him but he died minutes after the medication was administered. Did John's decision to change jobs cause his premature death?
+Options:
+- Yes
+- No
+
+Checking if question relies on a concept...
+Concept classification: True Concept: Causation
+
+Checking if question is answered correctly...
+Answer correct: True
+
+Generating subquestions...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 10 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 9 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 8 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 7 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 6 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 5 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 4 attempts remaining. Retrying...
+Generated subquestions: ["\nDid John's exposure to asbestos in his job contribute to his lung cancer and premature death? Explain your reasoning.\n"]
+Failed to generate 5 subquestions. Generated 1 subquestions. 3 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 2 attempts remaining. Retrying...
+Generated subquestions: []
+Failed to generate 5 subquestions. Generated 0 subquestions. 1 attempts remaining. Retrying...
+/home/tpi/Documents/github_saram/PotemkinBenchmark_Reproducibility/AutomaticEval/utils.py:8: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+  0%|          | 0/10 [00:00<?, ?it/s]`torch_dtype` is deprecated! Use `dtype` instead!
+
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][A
+
+Loading checkpoint shards:  50%|█████     | 1/2 [00:20<00:20, 20.81s/it][A
+
+Loading checkpoint shards: 100%|██████████| 2/2 [00:42<00:00, 21.38s/it][A
+Loading checkpoint shards: 100%|██████████| 2/2 [00:42<00:00, 21.29s/it]
+
+  0%|          | 0/10 [09:24<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/tpi/Documents/github_saram/PotemkinBenchmark_Reproducibility/AutomaticEval/main.py", line 104, in <module>
+    raise ValueError("Failed to generate any subquestions after multiple attempts.")
+ValueError: Failed to generate any subquestions after multiple attempts.
