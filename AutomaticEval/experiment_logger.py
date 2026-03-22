@@ -223,6 +223,30 @@ class ExperimentLogger:
         self.logs.append(entry)
         return entry
     
+    def log_potemkin_rate(
+        self,
+        trial_index: int,
+        concept: str,
+        potemkin_rate: float,
+        overall_coherence_mean: float,
+        running_scores: list
+    ) -> dict:
+        entry = self._create_log_entry(
+            trial_index=trial_index,
+            stage="potemkin_rate",
+            concept=concept,
+            notes=(
+                f"potemkin_rate={potemkin_rate:.4f}, "
+                f"overall_coherence_mean={overall_coherence_mean:.4f}, "
+                f"num_concepts_so_far={len(running_scores)}"
+            )
+        )
+        entry["data"]["potemkin_rate"] = potemkin_rate
+        entry["data"]["overall_coherence_mean"] = overall_coherence_mean
+        entry["data"]["running_scores"] = list(running_scores)
+        self.logs.append(entry)
+        return entry
+
     def log_coherence_scoring(
         self,
         trial_index: int,

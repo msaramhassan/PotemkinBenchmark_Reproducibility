@@ -267,15 +267,27 @@ for trial_index in bar:
                     judge_label=judge_label, category=category
                 )
 
-    # Running Potemkin rate
-    if overall_coherence:
-        potemkin_rate = 2 * (1 - np.mean(overall_coherence))
-        score_per_concept.append(potemkin_rate)
-        stderr = np.std(score_per_concept) / np.sqrt(len(score_per_concept))
-        bar.set_description(
-            f"[{responder_tag[:15]}→{judge_tag[:15]}] "
-            f"PR={np.mean(score_per_concept):.3f}±{stderr:.3f}"
-        )
+    # Potemkin rate: normalized incoherence — 0 is perfect, 1 is random.
+    # Mirrors main.py: computed from ALL coherence accumulated so far (running).
+    if not overall_coherence:
+        print("  WARNING: No valid coherence judgments for this trial. Skipping rate update.")
+        skipped_trials += 1
+        continue
+    print("\nCalculating Potemkin rate...")
+    potemkin_rate = 2 * (1 - np.mean(overall_coherence))
+    score_per_concept.append(potemkin_rate)
+    stderr = np.std(score_per_concept) / np.sqrt(len(score_per_concept))
+    bar.set_description(
+        f"[{responder_tag[:15]}→{judge_tag[:15]}] "
+        f"PR={np.mean(score_per_concept):.3f}±{stderr:.3f}"
+    )
+    logger.log_potemkin_rate(
+        trial_index=trial_index,
+        concept=concept,
+        potemkin_rate=potemkin_rate,
+        overall_coherence_mean=float(np.mean(overall_coherence)),
+        running_scores=score_per_concept,
+    )
 
 # ---------------------------------------------------------------------------
 # Final summary
@@ -304,3 +316,26 @@ log_file = logger.save()
 log_jsonl = logger.save_jsonl()
 print(f"Logs saved to: {log_file}")
 print(f"JSONL saved to: {log_jsonl}")
+
+# Save potemkin rate summary (mirrors what main.py tracks in score_per_concept)
+import json as _json
+summary = {
+    "responder": args.responder,
+    "judge": args.judge,
+    "is_self_judge": is_self_judge,
+    "benchmark": args.benchmark,
+    "num_trials": args.num_trials,
+    "completed_trials": args.num_trials - skipped_trials,
+    "skipped_trials": skipped_trials,
+    "seed": args.seed,
+    "timestamp": timestamp,
+    "score_per_concept": score_per_concept,
+    "final_potemkin_rate": float(np.mean(score_per_concept)) if score_per_concept else None,
+    "final_potemkin_rate_stderr": float(np.std(score_per_concept) / np.sqrt(len(score_per_concept))) if len(score_per_concept) > 1 else None,
+    "overall_coherence_mean": float(np.mean(overall_coherence)) if overall_coherence else None,
+    "num_coherence_judgments": len(overall_coherence),
+}
+summary_path = os.path.join(log_dir, f"potemkin_rates_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
+with open(summary_path, "w") as _f:
+    _json.dump(summary, _f, indent=2)
+print(f"Potemkin rate summary saved to: {summary_path}")
