@@ -322,8 +322,40 @@ def generate_subquestions(question, concept, model, num_subquestions):
 
 
 def parse_questions(inference):
-    """Extract questions wrapped in <question>…</question> tags."""
-    return re.findall(r'<question>(.*?)</question>', inference, re.DOTALL)
+    """Extract subquestions from model output with robust fallbacks.
+
+    Primary path expects `<question>...</question>` tags. Many local models
+    ignore formatting, so we additionally accept numbered or bullet lists and
+    lines that end with a question mark. Duplicates are removed while
+    preserving order.
+    """
+
+    candidates = []
+
+    # Preferred: explicit tags
+    tagged = re.findall(r'<question>(.*?)</question>', inference, re.DOTALL)
+    candidates.extend([q.strip() for q in tagged if q.strip()])
+
+    # Fallback: Q1:/Question 1: style blocks
+    q_blocks = re.findall(r'(?:^|\n)(?:Q|Question)\s*\d+\s*[:.-]\s*(.+?)(?=\n(?:Q|Question)\s*\d+\s*[:.-]|\Z)',
+                          inference, flags=re.IGNORECASE | re.DOTALL)
+    candidates.extend([q.strip() for q in q_blocks if q.strip()])
+
+    # Fallback: bullet/numbered lines ending with a question mark
+    for line in re.split(r'\n+', inference):
+        cleaned = re.sub(r'^\s*(?:[-*]|\d+[.)])\s*', '', line).strip()
+        if cleaned.endswith('?') and len(cleaned) > 8:  # avoid stray short strings
+            candidates.append(cleaned)
+
+    # De-duplicate while preserving order
+    seen = set()
+    unique_candidates = []
+    for q in candidates:
+        if q not in seen:
+            seen.add(q)
+            unique_candidates.append(q)
+
+    return unique_candidates
 
 
 def relies_on_concept(question, model):

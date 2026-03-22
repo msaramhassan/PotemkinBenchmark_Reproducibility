@@ -1,102 +1,117 @@
 """
-EXP-001 Batch Runner: Cross-Model Judging Matrix
-=================================================
-Runs all 9 responder×judge combinations (3×3) plus self-judging baselines
-for the three candidate models.
+run_exp_001.py — Convenience launcher for the cross-model judging experiment.
+==============================================================================
+Runs multiple (responder, judge) pairs to build a cross-model judging matrix.
 
-Output structure:
-    experiment_results_exp001/
-    ├── log_{responder}__judged_by__{judge}_{benchmark}_run{n}.txt
-    └── result_{responder}__judged_by__{judge}_{benchmark}_run{n}.txt
+Usage:
+    python run_exp_001.py                    # Run all configured pairs
+    python run_exp_001.py --local-only       # Only local model pairs (no API)
+    python run_exp_001.py --api-only         # Only API model pairs
+    python run_exp_001.py --dry-run          # Print commands without executing
 
-Run from inside AutomaticEval/:
-    python run_exp_001.py
+To add or change model pairs, edit the EXPERIMENT_PAIRS list below.
 """
+
+import argparse
 import os
 import subprocess
-from itertools import product
-from tqdm import tqdm
+import sys
+from datetime import datetime
 
 # ---------------------------------------------------------------------------
-# Configuration
+# Configuration — Edit these to change which experiments run
 # ---------------------------------------------------------------------------
-RESPONDERS = [
-    "gpt-4o",
-    "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
-    "claude-3-5-sonnet-20241022",
+
+# Local model pairs (zero API cost, run on GPU)
+LOCAL_PAIRS = [
+    # (responder, judge, benchmark, num_trials)
+    # Self-judge baselines (for comparison)
+    ("Qwen/Qwen2.5-7B-Instruct", "Qwen/Qwen2.5-7B-Instruct", "mmlu", 10),
+    ("meta-llama/Meta-Llama-3.1-8B-Instruct", "meta-llama/Meta-Llama-3.1-8B-Instruct", "mmlu", 10),
+    # Cross-model pairs (the actual experiment)
+    ("Qwen/Qwen2.5-7B-Instruct", "meta-llama/Meta-Llama-3.1-8B-Instruct", "mmlu", 10),
+    ("meta-llama/Meta-Llama-3.1-8B-Instruct", "Qwen/Qwen2.5-7B-Instruct", "mmlu", 10),
+    # BBH variants
+    ("Qwen/Qwen2.5-7B-Instruct", "meta-llama/Meta-Llama-3.1-8B-Instruct", "bbh", 10),
+    ("meta-llama/Meta-Llama-3.1-8B-Instruct", "Qwen/Qwen2.5-7B-Instruct", "bbh", 10),
 ]
 
-JUDGES = [
-    "gpt-4o",
-    "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
-    "claude-3-5-sonnet-20241022",
+# API model pairs (require API keys in environment)
+API_PAIRS = [
+    # Cross-family: API responder, local judge
+    ("gpt-4o", "Qwen/Qwen2.5-7B-Instruct", "mmlu", 10),
+    ("gpt-4o", "meta-llama/Meta-Llama-3.1-8B-Instruct", "mmlu", 10),
+    # Cross-family: local responder, API judge
+    ("Qwen/Qwen2.5-7B-Instruct", "gpt-4o", "mmlu", 10),
+    ("meta-llama/Meta-Llama-3.1-8B-Instruct", "gpt-4o", "mmlu", 10),
+    # Self-judge baseline for API model
+    ("gpt-4o", "gpt-4o", "mmlu", 10),
 ]
 
-# MMLU subset of 200 questions across 3 domains as per spec.
-# Each run processes num_trials=20 questions; 10 runs → ~200 total.
-BENCHMARKS   = ["mmlu"]
-NUM_RUNS     = 5       # 5 runs × 20 trials = 100 evaluations per pair
-NUM_TRIALS   = 20      # per run
 
-RESULTS_DIR = "experiment_results_exp001"
-os.makedirs(RESULTS_DIR, exist_ok=True)
+def run_pair(responder, judge, benchmark, num_trials, dry_run=False, seed=42):
+    """Launch a single exp_001 run."""
+    script = os.path.join(os.path.dirname(__file__), "new_files", "exp_001_cross_judge_main.py")
+    cmd = [
+        sys.executable, script,
+        "--responder", responder,
+        "--judge", judge,
+        "--benchmark", benchmark,
+        "--num_trials", str(num_trials),
+        "--seed", str(seed),
+    ]
 
-# ---------------------------------------------------------------------------
-# Build list of (responder, judge) pairs
-# Self-judging pairs (same model) serve as baseline
-# ---------------------------------------------------------------------------
-all_pairs = list(product(RESPONDERS, JUDGES))
-total_iterations = len(all_pairs) * len(BENCHMARKS) * NUM_RUNS
+    responder_short = responder.split("/")[-1][:20]
+    judge_short = judge.split("/")[-1][:20]
+    label = f"{responder_short} → {judge_short} ({benchmark})"
 
-print(f"EXP-001: Total jobs = {total_iterations}  "
-      f"({len(all_pairs)} pairs × {len(BENCHMARKS)} benchmarks × {NUM_RUNS} runs)")
+    if dry_run:
+        print(f"  [DRY RUN] {label}")
+        print(f"    {' '.join(cmd)}")
+        return None
 
-bar = tqdm(total=total_iterations, desc="EXP-001 Jobs")
+    print(f"\n{'=' * 70}")
+    print(f"  STARTING: {label}")
+    print(f"  Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"{'=' * 70}")
 
-for responder, judge in all_pairs:
-    for benchmark in BENCHMARKS:
-        r_tag = responder.replace("/", "_").replace(":", "_")
-        j_tag = judge.replace("/", "_").replace(":", "_")
-        pair_tag = f"{r_tag}__judged_by__{j_tag}"
-        judge_type = "self" if responder == judge else "cross"
+    result = subprocess.run(cmd, cwd=os.path.dirname(__file__))
+    return result.returncode
 
-        for run in range(1, NUM_RUNS + 1):
-            log_file    = os.path.join(
-                RESULTS_DIR,
-                f"log_{pair_tag}_{benchmark}_run{run}.txt"
-            )
-            result_file = os.path.join(
-                RESULTS_DIR,
-                f"result_{pair_tag}_{benchmark}_run{run}.txt"
-            )
 
-            cmd = [
-                "python", "exp_001_cross_judge_main.py",
-                "--responder",       responder,
-                "--judge",           judge,
-                "--benchmark",       benchmark,
-                "--num_trials",      str(NUM_TRIALS),
-                "--num_subquestions", "5",
-            ]
+def main():
+    parser = argparse.ArgumentParser(description="Run cross-model judging experiment matrix")
+    parser.add_argument("--local-only", action="store_true", help="Only run local model pairs")
+    parser.add_argument("--api-only", action="store_true", help="Only run API model pairs")
+    parser.add_argument("--dry-run", action="store_true", help="Print commands without executing")
+    parser.add_argument("--seed", type=int, default=42, help="Random seed for all runs")
+    args = parser.parse_args()
 
-            print(f"\n[{judge_type.upper()}] run {run}/{NUM_RUNS}: "
-                  f"{r_tag[:20]} → {j_tag[:20]}  [{benchmark}]")
+    pairs = []
+    if not args.api_only:
+        pairs.extend(LOCAL_PAIRS)
+    if not args.local_only:
+        pairs.extend(API_PAIRS)
 
-            with open(log_file, "w") as log_fh, open(result_file, "w") as res_fh:
-                proc = subprocess.run(
-                    cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
-                )
-                log_fh.write(proc.stdout)
-                log_fh.write(proc.stderr)
+    print(f"\nEXP-001 Cross-Model Judging Matrix")
+    print(f"Total pairs to run: {len(pairs)}")
+    print(f"{'[DRY RUN]' if args.dry_run else ''}")
 
-                for line in proc.stdout.split("\n"):
-                    if "Potemkin rate" in line:
-                        res_fh.write(line + "\n")
-                        print(f"  {line.strip()}")
+    results = {}
+    for i, (responder, judge, benchmark, trials) in enumerate(pairs):
+        print(f"\n--- Pair {i + 1}/{len(pairs)} ---")
+        rc = run_pair(responder, judge, benchmark, trials, args.dry_run, args.seed)
+        key = f"{responder} → {judge} ({benchmark})"
+        results[key] = rc
 
-            bar.update(1)
+    # Summary
+    print(f"\n{'=' * 70}")
+    print("  EXPERIMENT SUMMARY")
+    print(f"{'=' * 70}")
+    for key, rc in results.items():
+        status = "OK" if rc == 0 else ("DRY" if rc is None else f"FAIL({rc})")
+        print(f"  [{status}] {key}")
 
-bar.close()
-print("\nEXP-001 batch runs complete.")
-print(f"Logs:    {RESULTS_DIR}/")
-print("Next step: python analyze_exp_001.py")
+
+if __name__ == "__main__":
+    main()
