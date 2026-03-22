@@ -56,7 +56,8 @@ def load_local_model(model_name):
         _local_model = AutoModelForCausalLM.from_pretrained(
             model_name,
             device_map="auto",
-            torch_dtype=torch.float16,
+            # torch_dtype=torch.float16,
+            torch_dtype="auto",
         )
         if _local_tokenizer.pad_token is None:
             _local_tokenizer.pad_token = _local_tokenizer.eos_token
