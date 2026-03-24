@@ -1,0 +1,807 @@
+%%
+%% This is file `sample-sigconf-authordraft.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% samples.dtx  (with options: `all,proceedings,bibtex,authordraft')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from sample-sigconf-authordraft.tex.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file samples.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%%
+%%
+%% Commands for TeXCount
+%TC:macro \cite [option:text,text]
+%TC:macro \citep [option:text,text]
+%TC:macro \citet [option:text,text]
+%TC:envir table 0 1
+%TC:envir table* 0 1
+%TC:envir tabular [ignore] word
+%TC:envir displaymath 0 word
+%TC:envir math 0 word
+%TC:envir comment 0 0
+%%
+%% The first command in your LaTeX source must be the \documentclass
+%% command.
+%%
+%% For submission and review of your manuscript please change the
+%% command to \documentclass[manuscript, screen, review]{acmart}.
+%%
+%% When submitting camera ready or to TAPS, please change the command
+%% to \documentclass[sigconf]{acmart} or whichever template is required
+%% for your publication.
+%%
+%%
+\documentclass[sigconf,authordraft]{acmart}
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
+%% Rights management information.  This information is sent to you
+%% when you complete the rights form.  These commands have SAMPLE
+%% values in them; it is your responsibility as an author to replace
+%% the commands and values with those provided to you when you
+%% complete the rights form.
+\setcopyright{acmlicensed}
+\copyrightyear{2026}
+\acmYear{2026}
+\acmDOI{XXXXXXX.XXXXXXX}
+%% These commands are for a PROCEEDINGS abstract or paper.
+\acmConference[ACM REP '26]{ACM Conference on Reproducibility and Replicability}{June 24--27, 2026}{Rennes, France}
+%%
+%%  Uncomment \acmBooktitle if the title of the proceedings is different
+%%  from ``Proceedings of ...''!
+%%
+%%\acmBooktitle{ACM REP '26: ACM Conference on Reproducibility and Replicability,
+%%  June 24--27, 2026, Rennes, France}
+\acmISBN{978-1-4503-XXXX-X/2026/06}
+
+
+%%
+%% Submission ID.
+%% Use this when submitting an article to a sponsored event. You'll
+%% receive a unique submission ID from the organizers
+%% of the event, and this ID should be used as the parameter to this command.
+%%\acmSubmissionID{123-A56-BU3}
+
+%%
+%% For managing citations, it is recommended to use bibliography
+%% files in BibTeX format.
+%%
+%% You can then either use BibTeX with the ACM-Reference-Format style,
+%% or BibLaTeX with the acmnumeric or acmauthoryear sytles, that include
+%% support for advanced citation of software artefact from the
+%% biblatex-software package, also separately available on CTAN.
+%%
+%% Look at the sample-*-biblatex.tex files for templates showcasing
+%% the biblatex styles.
+%%
+
+%%
+%% The majority of ACM publications use numbered citations and
+%% references.  The command \citestyle{authoryear} switches to the
+%% "author year" style.
+%%
+%% If you are preparing content for an event
+%% sponsored by ACM SIGGRAPH, you must use the "author year" style of
+%% citations and references.
+%% Uncommenting
+%% the next command will enable that style.
+%%\citestyle{acmauthoryear}
+
+% PACKAGES
+\usepackage[most]{tcolorbox}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{needspace}
+\usepackage{float}
+%%
+%% end of the preamble, start of the body of the document source.
+\begin{document}
+
+%%
+%% The "title" command has an optional parameter,
+%% allowing the author to define a "short title" to be used in page headers.
+\title{Understanding or Imitation? Auditing Conceptual Understanding and Reasoning in Large Language Models}
+
+%%
+%% The "author" command and its associated commands are used to define
+%% the authors and their affiliations.
+%% Of note is the shared affiliation of the first two authors, and the
+%% "authornote" and "authornotemark" commands
+%% used to denote shared contribution to the research.
+\author{Muhammad Saram Hassan}
+\affiliation{%
+  \institution{Lahore University of Management Sciences (LUMS)}
+  \city{Lahore}
+  \state{Punjab}
+  \country{Pakistan}
+}
+\email{26100197@lums.edu.pk}
+
+\author{Essa Jan}
+\affiliation{%
+  \institution{Brown University}
+  \country{USA}
+}
+\email{essa_jan@brown.edu}
+
+\author{Ramneet Kaur}
+\affiliation{%
+  \institution{Computer Science Lab}
+  \city{SRI International}
+  \country{USA}
+}
+\email{ramneet.kaur@sri.com}
+
+\author{Eric Yeh}
+\affiliation{%
+  \institution{Artificial Intelligence Center}
+  \city{SRI International}
+  \country{USA}
+}
+\email{eric.yeh@sri.com}
+
+\author{Fareed Zaffar}
+\affiliation{%
+  \institution{Lahore University of Management Sciences (LUMS)}
+  \city{Lahore}
+  \state{Punjab}
+  \country{Pakistan}
+}
+\email{fareed.zaffar@lums.edu.pk}
+
+\author{Ashish Gehani}
+\affiliation{%
+  \institution{Computer Science Lab}
+  \city{SRI International}
+  \country{USA}
+}
+\email{ashish.gehani@sri.com}
+
+%%
+%% By default, the full list of authors will be used in the page
+%% headers. Often, this list is too long, and will overlap
+%% other information printed in the page headers. This command allows
+%% the author to define a more concise list
+%% of authors' names for this purpose.
+\renewcommand{\shortauthors}{Saram et al.}
+
+%%
+%% The abstract is a short summary of the work to be presented in the
+%% article.
+\begin{abstract}
+
+Do large language models genuinely understand concepts, or do they merely reproduce patterns that resemble understanding? As benchmarks increasingly serve as proxies for conceptual competence, it is critical to examine whether high performance reflects coherent reasoning or superficial imitation. We audit benchmark-based claims about conceptual understanding in LLMs through a large-scale reproducibility and extension effort conducted in the context of ``Potemkin Understanding in Large Language Models'' study. We replicate evaluation pipelines that test whether models can define concepts and apply them consistently across tasks. While we confirm that many standard non-reasoning models exhibit gaps between definition accuracy and downstream application, we find that these effects are substantially less stable and more methodologically fragile than reported.
+
+Across five identical runs per model, the reported potemkin scores vary by as much as 31\% - large enough to reverse qualitative conclusions - revealing significant stochastic instability driven by undocumented randomness and pipeline assumptions. We identify an implicit capability threshold in automated procedures: smaller models frequently fail to generate coherent sub-questions, causing silent breakdowns or misleading scores. 
+Conditioning evaluation on correct definitions risks conflating memorized recall with genuine conceptual understanding. 
+In addition,  the testing pipeline is prompt-dependent and relies on same-model self-judging, which can mask consistent but incorrect interpretations and inflate apparent coherence. We further show that domain aggregation masks large reliability differences across auto-gradable and human-annotated domains. Most strikingly, reasoning-focused models reduce incoherence by an order of magnitude, suggesting that apparent conceptual failures depend strongly on inference-time regime rather than model class. Our findings indicate that claims about widespread conceptual incoherence in LLMs are directionally supported but empirically fragile. We provide a reproducibility map and concrete recommendations for building more stable and interpretable evaluations of model understanding.
+
+\end{abstract}
+
+%%
+%% The code below is generated by the tool at http://dl.acm.org/ccs.cfm.
+%% Please copy and paste the code instead of the example below.
+%%
+\begin{CCSXML}
+<ccs2012>
+ <concept>
+  <concept_id>10010147.10010178</concept_id>
+  <concept_desc>Computing methodologies~Natural language processing</concept_desc>
+  <concept_significance>500</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10011007.10011074.10011099</concept_id>
+  <concept_desc>Software and its engineering~Software verification and validation</concept_desc>
+  <concept_significance>300</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10002944.10011123.10011131</concept_id>
+  <concept_desc>General and reference~Empirical studies</concept_desc>
+  <concept_significance>300</concept_significance>
+ </concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Computing methodologies~Natural language processing}
+\ccsdesc[300]{Software and its engineering~Software verification and validation}
+\ccsdesc[300]{General and reference~Empirical studies}
+
+%%
+%% Keywords. The author(s) should pick words that accurately describe
+%% the work being presented. Separate the keywords with commas.
+\keywords{reproducibility, large language models, benchmark evaluation, conceptual understanding, potemkin understanding, LLM evaluation, replicability}
+%% A "teaser" image appears between the author and affiliation
+%% information and the body of the document, and typically spans the
+%% page.
+% \begin{teaserfigure}
+%   \includegraphics[width=\textwidth]{sampleteaser}
+%   \caption{Seattle Mariners at Spring Training, 2010.}
+%   \Description{Enjoying the baseball game from the third-base
+%   seats. Ichiro Suzuki preparing to bat.}
+%   \label{fig:teaser}
+% \end{teaserfigure}
+
+%% Dates will be set by ACM upon acceptance
+%\received{20 February 2007}
+%\received[revised]{12 March 2009}
+%\received[accepted]{5 June 2009}
+
+%%
+%% This command processes the author and affiliation and title
+%% information and builds the first part of the formatted document.
+
+\maketitle
+\begin{tcolorbox}[colback=blue!5!white,
+                  colframe=blue!60!black,
+                  title=Overview of Reproducibility Efforts and Contributions]
+
+This paper is written and structured to be an experience paper. 
+
+We document what is reproducible, what is fragile, what surprises us, and what the community should do differently. The anchor paper \href{https://arxiv.org/abs/2506.21521}{(Manoridis et al. 2025)} provides code and data for some components; others required reconstruction or extension to the original code repository. We contribute to building a clean, complete reproducibility map, extended experiments to newer models, and noting down lessons that generalise beyond this specific paper.
+\end{tcolorbox}
+
+\section{Introduction}
+\subsection{The Stakes of LLM Evaluation}
+
+Large language models are now embedded in high-stakes decision pipelines across medicine, law, education, and software engineering. In each of these contexts, we are implicitly trusting that when a model produces a correct-sounding answer, it is doing so for the right reasons i.e that it actually understands the underlying concept, not just the surface pattern of how that concept tends to be tested.
+This assumption has gone largely unexamined. Factual errors (or otherwise known as hallucinations) in LLM outputs can be caught by cross-referencing known facts, but conceptual hallucinations - where a model uses a term fluently yet applies the underlying concept incoherently - are far harder to detect and far more dangerous to rely upon.
+
+This trust is largely mediated through benchmarks. Performance on datasets like MMLU, BIG-Bench, and HumanEval has become the de facto language for claims about LLM capability and reliability. A model that scores 90\% on a professional medical exam is implicitly credited with something like "medical understanding." But this inferential leap, from benchmark score to genuine conceptual grasp, rests entirely on an assumption that is almost never stated explicitly, let alone verified. 
+
+This tension is formalised by \cite{mancoridis2025potemkin} 
+% Mancoridis et al. (2025) in "Potemkin Understanding in Large Language Models" 
+(hereafter referred to as: \textit{the Potemkin paper}), which introduces the concept of a keystone set and a measurable potemkin rate. A Potemkin model is one that passes definition-level tests but fails systematically at downstream concept application tasks exhibiting the appearance of understanding without substance. The paper reports that potemkin behaviour is ubiquitous across all models.
+
+These are strong claims with significant implications for the entire field of LLM evaluation. If true, they invalidate a substantial fraction of existing benchmark results. If overstated or methodologically fragile, they risk producing an incorrect picture of model capabilities. The reproducibility of the specific empirical findings is one question; the robustness of the underlying methodology is another; and the generalizability of the results to models released after the study is a third.
+We additionally examine whether the Potemkin metric itself behaves as documented, finding that its formula permits values exceeding 1.0 --- a property unacknowledged in the original work that complicates interpretation. Our paper is a large-scale reproducibility and extension effort that attempts to address all three targeting the Potemkin paper's two experimental procedures.
+
+
+\subsection{Contributions}
+This paper is organized around four research questions:
+
+\begin{itemize}
+    \item \textbf{RQ1:} Can the original empirical results be reproduced using the provided code and data?
+    \item \textbf{RQ2:} What components required reconstruction, and what did that process reveal about the original methodology?
+    \item \textbf{RQ3:} Do potemkin rates hold, increase, or decrease on models untested or released after the original study?
+    \item \textbf{RQ4:} What are the conceptual and methodological limitations of the potemkin framework as a diagnostic tool?
+\end{itemize}
+
+Our contribution is threefold:
+
+\begin{itemize}
+    \item \textbf{Reproduction:} We attempt exact reproduction of the automated lower-bound procedure (Procedure 2) and partial reproduction of the benchmark procedure (Procedure 1).
+    
+    \item \textbf{Extension:} We extend both procedures to models not included in the original study, including smaller open-source models, newer reasoning models, and quantised variants.
+    
+    \item \textbf{Critique:} We identify and systematically test four sources of methodological fragility: stochastic instability across runs, capability-threshold failures in smaller models, same-model self-judging circularity, and keystone validity.
+\end{itemize}
+
+\section{BACKGROUND AND RELATED WORK}
+
+\subsection{The Potemkin Paper: Technical Summary}
+
+%% \textit{Mancoridis et al.} (ICML 2025) 
+The Potemkin Paper \cite{mancoridis2025potemkin} makes a single core claim: Standard human-designed benchmarks are invalid tests for LLMs because LLMs can misunderstand concepts in non-human ways. The argument rests on the notion of a \textit{keystone set} --- a minimal set of instances that, if answered correctly by a human, implies correct concept understanding. An LLM that passes a keystone but fails on related use tasks is defined as exhibiting \textit{potemkin understanding}.
+
+Two empirical procedures are introduced:
+
+\begin{itemize}
+    \item \textbf{Procedure 1 (Benchmark):} A custom benchmark across 32 concepts in 3 domains --- literary techniques, game theory, and psychological biases --- testing definition, classification, generation, and editing tasks. The potemkin rate is defined as the fraction of use-task questions answered incorrectly, conditional on a correct definition.
+    
+    \item \textbf{Procedure 2 (Automated):} A fully automated lower-bound procedure using MMLU: the model answers benchmark questions, generates related subquestions, answers them, then judges its own answers. Disagreement between benchmark performance and subquestion performance indicates potemkin behaviour.
+\end{itemize}
+
+\textbf{Key reported results}: mean potemkin rates of 0.55 (classify), 0.40 (generate), and 0.40 (edit); automated lower bound of 0.62; and a striking outlier: \textit{o3-mini} achieves 0.03 incoherence versus GPT-4o's 0.64.
+
+\subsection{Related Work}
+
+% {ADD PAPERS RELATED TO THE WORK HERE}
+The call to closely analyze the ability of machine-learning trained systems to reason correctly has been a concern for years \citep{Church_Hestness_2019}.  With the rise of highly performant LLMs displaying human-like abilities to reason across a broad of tasks and environments, there has been growth in works scrutinzing and questioning the ability of current generation LLMs to actually reason  \citep{arkoudas2023gpt}. This is of particular concern in the area of AI alignment, where systems may need to perform complex inferences to determine if their behavior in what amounts to open-world domains matches meets expectations and stays within safety constraints \citep{challenges_alignment_safety_llm_anwar2024}.
+
+Chief amongst many concerns is the tendency of machine learning systems to learn \emph{shortcuts}, surface feature cues in the input that directly correlate with the answer.  Shortcuts gives the impression the system is capable of complex conceptual understanding, but is limited in practice by the domain of the shortcut and thus does not generalize.  Shortcutting has been a long running concern for machine learning systems \citep{Church_Hestness_2019}, especially for systems performing natural language understanding (NLU) tasks \citep{du2023shortcut}.  NLU systems are expected to perform complex reasoning over inputs and generate answers in natural language, such as answering natural language questions, and the area has driven much of the benchmarks used to assess LLMs \citep{rajpurkar2016squad, wang2018_GLUE, hendrycks2020measuring}.  In particular, the consistency and coherence of question-answering systems have been examined under conceptual variance \citep{ribeiro-etal-2018-semantically} and logically consistency \citep{ribeiro-etal-2018-semantically}.
+
+Prior work has measured the ability of LLMs to perform reasoning against hierarchical models of task complexity, most notably Bloom's Taxonomy \citep{Krathwohl01112002}, a framework originally developed for pedagogy where problems are mapped into a hierarchy of increasingly difficult problem types organized around the type of cognitive ability required.  Indeed, Bloom-based analyses of LLM performance on question-answer benchmarks \citep{huber-niklaus-2025-llms} and medical examination \citep{herrmann2024assessing} show these systems tend to perform poorly on higher order reasoning.
+
+In the area of education research concept inventories, sets of questions that measure the level of concept understanding displayed by students and are equivalent to the keystone set described in \cite{mancoridis2025potemkin}, have found use in assessing student learning across multiple domains \citep{sands2018using}.  However, there is significant variance in the development, validation, and reliability of such inventories \cite{netere2024_stem_concept_inventories}.  Indeed establishing psychometric validity and reliability (measurement of mental processes) is critical for education and is central to our recommendations for assessments of LLMs and other automated systems: If an instrument fails to generate reliable measures of a phenomena in question, it compromises the ability to make concrete, trustworthy statements about that phenomena.
+
+% \subsection{Reproducibility Profiles of the Two Procedures}
+\begin{table}[t]
+\small
+\centering
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+
+\rowcolors{2}{gray!10}{white}
+
+\begin{tabularx}{\columnwidth}{>{\bfseries}l X X}
+\toprule
+Property & Procedure 1 (Benchmark) & Procedure 2 (Automated) \\
+\midrule
+Scope & 3 domains, 32 concepts & Any MMLU / BBH concept \\
+Human annotation required? & Yes (significant expert effort) & No \\
+Bound type & Direct measurement & Lower bound \\
+Code available? & Partial & Full \\
+Scalable to new models? & No, expert-intensive & Yes \\
+Judge bias risk? & Author/expert labels & Same-model self-judging \\
+\bottomrule
+\end{tabularx}
+
+\caption{Comparison of reproducibility characteristics across the two Potemkin procedures}
+\label{tab:potemkin-procedures}
+\end{table}
+
+
+% HOW DO I FORMAT THIS
+\section{REPRODUCIBILITY ATTEMPT: SETUP AND METHODOLOGY}
+
+This section provides the complete specification of our reproduction and extension efforts, detailed to the level required for independent replication.
+
+To our knowledge, no published reproducibility study has targeted the Potemkin paper prior to this work. The paper was accepted at ICML 2025; code was made available via GitHub at commit 39 of the \texttt{PotemkinBenchmark} repository. Two procedures were employed in the work to assess LLM understanding (Table \ref{tab:potemkin-procedures}).  Procedure 1's annotation pipeline relies on expert annotators recruited through Upwork and is not independently replicable without significant cost. Procedure 2's code is available and fully automated, making it the primary target for reproduction.
+
+\subsection{Experimental Environment}
+
+\subsection{Hardware and Software Environment}
+
+\begin{table}[t]
+\small
+\centering
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+
+\rowcolors{2}{gray!10}{white}
+
+\begin{tabularx}{\columnwidth}{>{\bfseries}l X}
+\toprule
+Component & Specification \\
+\midrule
+Operating System & Ubuntu 24.04.4 LTS \\
+CPU & Intel Core i9-14900K ($32$ threads) \\
+RAM & 64.0 GiB \\
+Storage & 2 TB SSD \\
+GPU & 2 $\times$ NVIDIA Quadro RTX 6000 (48 GB VRAM each) \\
+Python & 3.10 (exact version documented in \texttt{requirements.txt}) \\
+Primary libraries & \texttt{transformers}, \texttt{torch}, \texttt{openai}, \texttt{anthropic}, \texttt{datasets} \\
+Artifact commit & \texttt{PotemkinBenchmark} @ commit 39 (GitHub) \\
+Random seeds & Documented per experiment; default seed=42 for all 5-iteration stability runs \\
+\bottomrule
+\end{tabularx}
+
+\caption{Hardware and software environment used for reproduction and extension experiments}
+\label{tab:hardware-environment}
+\end{table}
+
+All reproduction and extension experiments were conducted on a Linux workstation equipped with dual RTX 6000 GPUs. The software environment used PyTorch together with the Hugging Face \texttt{transformers} library for local inference and API-based model interaction.
+
+The original experiments primarily relied on API-accessed models and therefore did not require local GPU inference. GPU execution was introduced not only for extension experiments involving smaller open-weight models, including \texttt{Llama-3.1-8B}, \texttt{Llama-3.2-3B}, and selected \texttt{Qwen-2.5} variants but also the original open source models.
+
+
+\subsection{Artifact Acquisition and Assessment}
+
+We cloned the \texttt{PotemkinBenchmark} repository at commit 39, the version current at the time of paper acceptance, and verified the SHA against the authors' published hash. Upon acquisition, we assessed the available artifacts against the procedures described in the paper.
+
+\paragraph{What was directly usable.}
+The repository includes the game theory domain data together with its automated evaluation functions, the MMLU/BBH-based automated lower-bound procedure (Procedure~2) with its full pipeline code, the raw benchmark datasets for classification, generation, and editing tasks across all three domains, and the prompt templates used for definition elicitation and task evaluation. Procedure~2 code was executed without modification as an initial baseline to establish reference values prior to any extension.
+
+\paragraph{What required reconstruction or extension.}
+No complete execution pipeline is provided for Procedure~1 (benchmark evaluation). Although the paper reports results across seven models, 32 concepts, and four task types, the repository contains only the underlying data and isolated evaluation functions, without a unified runner capable of reproducing Table~1 directly. The experiment orchestration layer was therefore reconstructed from the methodological description in the paper, treating the published question sets as inputs and implementing automated evaluation for the game theory domain only, where auto-grading functions are defined.
+
+A further limitation concerns the annotation-dependent domains. The psychological biases annotations were produced by behavioural scientists recruited through Upwork and are not reproducible in a strict methodological sense: the annotators are not replaceable, their individual judgments are not published, and no inter-rater reliability statistics are reported. We treat this as a hard reproducibility boundary for that domain. The literary techniques annotations were produced by the paper's own authors without independent external validation, a limitation revisited in Section~5.
+
+\paragraph{Code quality observations.}
+The released code is functional but uneven in quality. The automated procedure is runnable, but includes an undocumented subquestion generation cap that directly affects reported potemkin rates (discussed in Section~\ref{sec:modifications}).
+
+\subsubsection{Procedure 1: Computational Reproducibility}
+\label{sec:proc1-repro}
+
+Procedure~1 results are computationally reproducible. We executed the authors' \texttt{potemkin\_rates.py} script against the published \texttt{labeled\_instances.csv} file without modification. Every one of the 24 per-model-per-task Potemkin rate values matches the paper's Table~1 within $2\times$ the reported standard error. The maximum absolute deviation we observed was 0.006, within rounding precision. This confirms that the code and data, taken together, reproduce the paper's numbers exactly.
+
+However, Procedure~1 is \textbf{not independently replicable}. The annotation pipeline depends on two resources unavailable to independent researchers: (1) domain-expert annotators recruited via Upwork at significant cost and coordination overhead, and (2) author-in-the-loop adjudication of borderline cases, the specifics of which are not recoverable from public artifacts. The psychological biases domain in particular requires behavioural scientists whose judgments are not published and whose inter-rater statistics, while reported in aggregate, do not permit reconstruction of individual labelling decisions. We treat this as an inherent limitation of human-annotated benchmarks rather than a deficiency of this specific paper, but note that the original work does not acknowledge this replicability boundary explicitly.
+
+We therefore accept the original labels as ground truth for Procedure~1 and focus our independent replication effort on Procedure~2, which is fully automated and thus independently replicable in principle.
+
+\begin{table}[t]
+\small
+\centering
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\rowcolors{2}{gray!10}{white}
+\begin{tabularx}{\columnwidth}{l c c c c}
+\toprule
+\textbf{Task Type} & \textbf{Original (mean $\pm$ SE)} & \textbf{Our Reproduction} & \textbf{Max Dev.} & \textbf{Status} \\
+\midrule
+Classify & $0.55 \pm 0.02$ & $0.545 \pm 0.021$ & 0.006 & Reproduced \\
+Generate & $0.40 \pm 0.03$ & $0.401 \pm 0.033$ & 0.005 & Reproduced \\
+Edit     & $0.40 \pm 0.02$ & $0.401 \pm 0.018$ & 0.004 & Reproduced \\
+\bottomrule
+\end{tabularx}
+\caption{Procedure~1 reproduction summary. All 24 per-model-per-task values fall within $2\times$ standard error of the original reported values.}
+\label{tab:proc1-repro}
+\end{table}
+
+\subsection{Modifications Required for Reproducibility}
+\label{sec:modifications}
+
+The following modifications were required before stable reproduction could be achieved.
+
+\paragraph{Procedure~2 (Automated Framework).}
+The original pipeline caps subquestion generation at exactly five: if a model generates more, the pipeline re-runs the entire generation call, creating unnecessary computational cost and introducing additional non-determinism. We modified this behaviour by randomly sampling five questions whenever more than five were produced.
+
+Smaller models frequently generated fewer than five subquestions on the first attempt. To address this, we introduced a retry loop that re-prompts up to three times before falling back to the available output, while explicitly logging any shortfall.
+
+The \texttt{relies\_on\_concept} filter also failed silently for smaller models that included the token \texttt{YES} inside otherwise incoherent responses. We added explicit parsing rules to detect these cases and record them as evaluation failures rather than valid responses.
+
+We additionally implemented automated saving of per-run potemkin rate scores to structured CSV output, which was absent from the original release, and extended the pipeline to support local inference through Hugging Face \texttt{transformers}, enabling evaluation of open-source and quantised models without external API cost.
+
+\paragraph{Procedure~1 (Benchmark Framework).}
+No executable code was provided for Procedure~1. We therefore reconstructed the evaluation pipeline from scratch following the methodology described in the paper and applied it to the published question sets.
+
+\paragraph{Potemkin rate unboundedness.}
+We additionally discovered that the Potemkin rate formula, $2 \cdot (1 - \bar{C})$, has no enforced upper bound. When the judge model is anti-coherent --- grading correct answers as incorrect more often than chance --- mean coherence falls below 0.5 and the rate exceeds 1.0. We observed this in multiple runs: LLaMA-3.1-8B on BBH averaged 1.024 across 5 runs, and LLaMA-3.2-3B on MMLU averaged 1.018. The original paper implicitly treats the metric as bounded to $[0, 1]$ (interpreting 0 as perfect coherence and 1 as random chance) but never acknowledges values above 1.0. This is not a bug --- it is a property of the formula that the paper does not document. We report these values without clamping.
+
+\subsection{Results: Reproduction of Original Models}
+\label{sec:original-repro}
+
+We begin by reporting our reproduction of Procedure~2 on two models that overlap with the original study: \texttt{Llama-3.1-70B-Instruct} (the same family as the paper's Llama-3.3-70B) and \texttt{Qwen2-VL-72B-Instruct} (the same model). We ran five iterations on both MMLU and BBH for each, using the modified pipeline described in Section~\ref{sec:modifications}. A critical ambiguity is that the original paper does not specify which benchmark dataset (MMLU or BBH) was used for its reported numbers; we therefore run both.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{ll ccccc c}
+\toprule
+\textbf{Model} & \textbf{Data} & \textbf{R1} & \textbf{R2} & \textbf{R3} & \textbf{R4} & \textbf{R5} & \textbf{Mean $\pm$ Std} \\
+\midrule
+Llama-3.1-70B & MMLU & 0.81 & 0.59 & 0.83 & 0.69 & 0.74 & $0.73 \pm 0.10$ \\
+Llama-3.1-70B & BBH  & 0.93 & 0.59 & 0.62 & 0.70 & 0.60 & $0.69 \pm 0.14$ \\
+\rowcolor{gray!10}
+Qwen2-VL-72B  & MMLU & 0.63 & 0.79 & 0.28 & 0.54 & 0.60 & $0.57 \pm 0.18$ \\
+\rowcolor{gray!10}
+Qwen2-VL-72B  & BBH  & 0.75 & 0.83 & 0.65 & 0.79 & 0.70 & $0.74 \pm 0.07$ \\
+\bottomrule
+\end{tabular}
+\caption{Procedure~2 reproduction on original-paper models. Five iterations each. Original paper reports: Llama-3.3-70B PR\,$=$\,0.82, Qwen2-VL-72B PR\,$=$\,0.82.}
+\label{tab:original-repro}
+\end{table}
+
+Table~\ref{tab:original-repro} reveals several findings. First, the run-to-run variance is substantial even for large frontier models: Llama-3.1-70B on MMLU ranges from 0.59 to 0.83 (spread of 0.24), and Qwen2-VL-72B on MMLU ranges from 0.28 to 0.79 (spread of 0.51). These are not minor fluctuations --- a single unlucky run could place Qwen2-VL-72B at 0.28, which would suggest near-perfect coherence, while another places it at 0.79, suggesting severe potemkin behaviour.
+
+Second, our mean values diverge from the original paper's single reported number. The paper reports a Potemkin rate of 0.82 for both Llama-3.3-70B and Qwen2-VL-72B. Our Llama-3.1-70B averages 0.73 on MMLU and 0.69 on BBH; our Qwen2-VL-72B averages 0.57 on MMLU and 0.74 on BBH. Multiple factors contribute to this gap:
+
+\begin{enumerate}
+    \item \textbf{Dataset ambiguity.} The original paper does not specify whether the reported numbers come from MMLU, BBH, or a combination. Our results show that the choice of benchmark matters: Qwen2-VL-72B differs by 0.17 between MMLU and BBH means.
+    \item \textbf{Question sampling.} Each run samples different questions from the benchmark, and each question tests a different concept. Since the pipeline then generates \emph{new} subquestions for each sampled concept, the randomness compounds: different questions $\to$ different concepts $\to$ different subquestions $\to$ different answers $\to$ different coherence judgments.
+    \item \textbf{Model version differences.} We use Llama-3.1-70B rather than Llama-3.3-70B, as the latter was not publicly available at the time of our experiments. While the same family, checkpoint differences can shift behaviour.
+    \item \textbf{Stochastic model output.} Even holding the question fixed, the model's response varies across calls due to temperature and sampling. The judge's grading of those responses introduces yet another layer of randomness.
+\end{enumerate}
+
+The compounding of these sources of variance means that single-run point estimates, as reported in the original paper, are insufficient to characterise a model's true Potemkin rate. Our five-run analysis suggests that the original paper's numbers fall within the range of plausible outcomes but do not represent stable measurements.
+
+%% ─────────────────────────────────────────────
+\subsection{Results: Extension to Smaller Models}
+\label{sec:smaller-models}
+
+We extend Procedure~2 to smaller open-source models to test whether the framework generalises beyond the frontier models examined in the original study. Table~\ref{tab:iteration_results} presents five-iteration results for models ranging from 0.5B to 8B parameters.
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.2}
+
+\begin{tabular}{ll ccccc c}
+\toprule
+\textbf{Model} & \textbf{Dataset} & \textbf{Iter 1} & \textbf{Iter 2} & \textbf{Iter 3} & \textbf{Iter 4} & \textbf{Iter 5} & \textbf{Mean $\pm$ Std} \\
+\midrule
+
+Llama-3.1-8B & MMLU
+& 1.11 (0.04) & 1.05 (0.02) & 0.90 (0.04) & 0.80 (0.03) & 0.90 (0.06) & $0.95 \pm 0.11$ \\
+
+Llama-3.1-8B & BBH
+& 1.09 (0.03) & 1.14 (0.04) & 0.90 (0.03) & 1.09 (0.04) & 0.90 (0.03) & $1.02 \pm 0.10$ \\
+
+\rowcolor{gray!10}
+Llama-3.2-3B & MMLU
+& 1.08 (0.02) & 1.04 (0.02) & 1.10 (0.04) & 0.91 (0.02) & 0.96 (0.06) & $1.02 \pm 0.07$ \\
+
+\rowcolor{gray!10}
+Llama-3.2-3B & BBH
+& 1.06 (0.03) & 0.82 (0.03) & 1.01 (0.07) & 0.87 (0.07) & 1.08 (0.03) & $0.97 \pm 0.10$ \\
+
+Qwen2.5-7B & MMLU
+& 0.79 (0.01) & 1.05 (0.03) & 0.74 (0.02) & 0.81 (0.01) & 0.92 (0.01) & $0.86 \pm 0.11$ \\
+
+Qwen2.5-7B & BBH
+& 0.72 (0.01) & 0.80 (0.02) & 0.84 (0.03) & 0.73 (0.02) & 0.83 (0.03) & $0.78 \pm 0.05$ \\
+
+\rowcolor{gray!10}
+Qwen2.5-0.5B$^\dagger$ & MMLU
+& 0.90 (0.13) & 1.44 (---) & --- & 1.03 (0.03) & --- & $1.12 \pm 0.23$ \\
+
+\rowcolor{gray!10}
+Qwen2.5-0.5B$^\dagger$ & BBH
+& FAIL & FAIL & FAIL & FAIL & FAIL & --- \\
+
+\bottomrule
+\end{tabular}
+
+\caption{Potemkin rates for smaller open-source models across five identical iterations. Values shown as rate (within-run SE). $^\dagger$Qwen2.5-0.5B: $n{=}3$ for MMLU (2~runs produced no output); all 5~BBH runs failed with NoneType errors.}
+\label{tab:iteration_results}
+
+\end{table*}
+
+Three findings emerge. First, the run-to-run variance observed in frontier models (Section~\ref{sec:original-repro}) is even more pronounced in smaller models. Llama-3.1-8B on MMLU spans 0.80 to 1.11 (spread of 0.31); Qwen2.5-7B on MMLU spans 0.74 to 1.05 (spread of 0.31). These are differences large enough to change the qualitative interpretation of whether a model is performing above or below chance.
+
+Second, several model-benchmark configurations produce mean Potemkin rates exceeding 1.0 (Llama-3.1-8B BBH: 1.02, Llama-3.2-3B MMLU: 1.02, Qwen2.5-0.5B MMLU: 1.12). As discussed in Section~\ref{sec:modifications}, this is a property of the formula that the original paper never acknowledges.
+
+Third, a clear capability threshold emerges. Qwen2.5-0.5B failed to generate any valid subquestions in all five BBH runs and produced usable output in only 3 of 5 MMLU runs. Even the completed MMLU runs show extreme variance ($1.12 \pm 0.23$). The pipeline presupposes that the model can reliably generate coherent subquestions from benchmark-style inputs --- models below approximately 3B parameters cannot satisfy this precondition. Smaller models also struggle with \emph{instruction following}: they frequently fail to format outputs as required by the pipeline (e.g., generating freeform text instead of structured subquestions), triggering parsing failures that manifest as silent data loss rather than explicit errors. The original paper restricts itself to seven large frontier models and never acknowledges this implicit capability assumption.
+
+%% ─────────────────────────────────────────────
+\subsection{Results: Reasoning Models}
+\label{sec:reasoning-models}
+
+The original paper includes \texttt{o3-mini} and \texttt{GPT-o1-mini} in Procedure~2 and reports strikingly low incoherence scores (\texttt{o3-mini}: 0.03 versus \texttt{GPT-4o}: 0.64), but does not provide a dedicated analysis of this contrast. We extend this comparison to open-source reasoning models.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{l l c c}
+\toprule
+\textbf{Model} & \textbf{Dataset} & \textbf{PR (Self-Judge)} & \textbf{$n$ runs} \\
+\midrule
+DeepSeek-R1-Distill-7B & MMLU & 0.94 & 1 \\
+DeepSeek-R1-Distill-7B & BBH  & 0.89 & 1 \\
+%% PLACEHOLDER: Add rows for additional reasoning models as results come in
+%% e.g. QwQ-32B, DeepSeek-R1-Distill-14B, GPT-o3-mini (if API available)
+\bottomrule
+\end{tabular}
+\caption{Potemkin rates for reasoning models. Additional rows to be populated as experiments complete.}
+\label{tab:reasoning-models}
+\end{table}
+
+Our preliminary results from DeepSeek-R1-Distill-Qwen-7B (Table~\ref{tab:reasoning-models}) show Potemkin rates of 0.94 on MMLU and 0.89 on BBH --- comparable to the non-reasoning models in our study. This appears to contradict the original paper's finding that reasoning models achieve dramatically lower Potemkin rates. However, the comparison is not straightforward for two reasons.
+
+First, the original paper's striking finding was about \emph{incoherence} rates (o3-mini at 0.03 vs GPT-4o at 0.64), not the Potemkin rate lower bound. The Potemkin rate combines incoherence with other factors, and our pipeline does not currently separate the incoherence component from the overall rate, making direct comparison difficult.
+
+Second, reasoning models present a practical challenge for the pipeline itself: 12 of 13 attempted DeepSeek-R1 runs failed to complete. The model's verbose chain-of-thought reasoning overflows the pipeline's token limits before final grading completes. This is itself a reproducibility finding --- the automated procedure was designed for standard inference-time models and may require modifications (longer context windows, output truncation, or reasoning-token stripping) to evaluate reasoning models correctly.
+
+The importance of this analysis cannot be overstated. If reasoning-mode inference substantially mitigates the potemkin failure mode, as the original paper's own o3-mini data suggests, then the claim that potemkin understanding is ubiquitous across LLMs is a claim about a specific inference-time regime, not about LLMs as a class. Given the rapid deployment of reasoning models, this qualification deserves dedicated investigation.
+
+%% PLACEHOLDER: Update table and analysis once additional reasoning model runs complete.
+
+%% ─────────────────────────────────────────────
+\subsection{Results: Cross-Model Judging}
+\label{sec:cross-judging}
+
+The original Procedure~2 uses the same model as both responder and judge. This creates a circularity risk: a model that consistently misapplies a concept will also consistently judge its own misapplication as correct, inflating apparent coherence. We designed and executed a cross-model judging experiment to test this hypothesis directly.
+
+\paragraph{Methodology.} For a given benchmark question, the \emph{responder} model completes the standard pipeline (concept detection, subquestion generation, answering). Then, instead of the responder grading its own answers, an independent \emph{judge} model evaluates whether each answer is correct or incorrect. This decoupling means the judge may not share the responder's systematic errors, and any consistent misapplication by the responder should appear as incoherence under an external judge.
+
+We tested three configurations on MMLU (10 trials each, seed 42):
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{l l c c c}
+\toprule
+\textbf{Responder} & \textbf{Judge} & \textbf{PR $\pm$ SE} & \textbf{Coherence} & \textbf{$n$} \\
+\midrule
+Qwen2.5-1.5B & Llama-3.1-8B & $0.63 \pm 0.03$ & 0.645 & 93 \\
+DeepSeek-R1-7B & DeepSeek-R1-7B & $0.95 \pm 0.04$ & 0.545 & 66 \\
+DeepSeek-R1-7B & Llama-3.1-8B & $1.06 \pm 0.02$ & 0.488 & 84 \\
+\midrule
+%% PLACEHOLDER: GPT-4o as judge rows
+%% DeepSeek-R1-7B & GPT-4o & [pending] & [pending] & [pending] \\
+%% Qwen2.5-1.5B  & GPT-4o & [pending] & [pending] & [pending] \\
+%% Llama-3.1-8B  & GPT-4o & [pending] & [pending] & [pending] \\
+\bottomrule
+\end{tabular}
+\caption{Cross-model judging results on MMLU. PR\,$=$\,Potemkin rate; Coherence\,$=$\,mean coherence score; $n$\,$=$\,total judgments. GPT-4o judge rows to be added.}
+\label{tab:cross-judge}
+\end{table}
+
+The results in Table~\ref{tab:cross-judge} reveal a clear pattern. When DeepSeek-R1-Distill-7B judges its own answers, the Potemkin rate is 0.95 with coherence of 0.545. When the same answers are judged by Llama-3.1-8B, the Potemkin rate rises to 1.06 with coherence dropping to 0.488 --- a shift of 0.11 in Potemkin rate. This is consistent with the self-judging circularity hypothesis: the responder's systematic errors are partially masked when it evaluates its own outputs, because both the answer and the evaluation share the same misconceptions. An external judge, not sharing those biases, detects more incoherence.
+
+The Qwen2.5-1.5B $\to$ Llama-3.1-8B configuration shows a substantially lower Potemkin rate (0.63) with higher coherence (0.645). This suggests that either Qwen2.5-1.5B's answers are genuinely more coherent, or that Llama-3.1-8B is a more lenient judge for this particular model's output style. Disentangling judge leniency from genuine coherence requires the full cross-judging matrix with GPT-4o as a calibration judge --- these results are forthcoming.
+
+The practical implication is significant: the self-judging design used in the original paper's Procedure~2 may systematically underestimate Potemkin rates. If a model consistently misapplies a concept but does so in a self-consistent way, self-judging registers this as coherent. Cross-model evaluation exposes the misunderstanding. This finding suggests that the original paper's reported Potemkin rates may be \emph{lower bounds on lower bounds} --- the true extent of potemkin behaviour could be higher than reported.
+
+%% ─────────────────────────────────────────────
+\subsection{Results: Procedure~1 Independent Replication}
+\label{sec:proc1-replication}
+
+Procedure~1 of the original paper uses human expert annotators to label 3,159 concept-application instances. As established in Section~\ref{sec:proc1-repro}, we verified computational reproducibility but cannot independently replicate the human annotation. To bridge this gap, we designed an automated pipeline that replaces human annotators with LLM-as-judge evaluation.
+
+\paragraph{Methodology.} We use the exact questions from the original paper's \texttt{BenchmarkDataset} across all three domains (literary techniques, game theory, psychological biases) and all four task types (Define, Classify, Generate, Edit). For each question, a \emph{responder} model produces an answer following the original methodology. A \emph{judge} model then evaluates the answer using task-specific prompts designed to mirror the original annotation rubric:
+
+\begin{itemize}
+    \item \textbf{Define}: The judge evaluates whether the model's definition captures the essential properties of the concept.
+    \item \textbf{Classify}: Auto-gradeable --- we compare the model's Yes/No output directly against the ground-truth label.
+    \item \textbf{Generate}: The judge evaluates whether the generated example correctly demonstrates the concept.
+    \item \textbf{Edit}: The judge evaluates whether the edited text correctly applies or removes the concept as instructed.
+\end{itemize}
+
+We currently report results using open-source models as both responder and judge (self-judging baseline). GPT-4o will serve as an independent judge to calibrate the LLM-as-judge pipeline against both the self-judge baseline and the original human annotations.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Task} & \textbf{Self-Judge PR} & \textbf{GPT-4o Judge PR} & \textbf{Original (Human)} \\
+\midrule
+Define (Keystone)  & --- & --- & 94.2\% accuracy \\
+Classify           & ---  & ---  & $0.55 \pm 0.02$ \\
+Generate           & ---  & ---  & $0.40 \pm 0.03$ \\
+Edit               & ---  & ---  & $0.40 \pm 0.02$ \\
+%% PLACEHOLDER: Fill self-judge and GPT-4o judge columns as results come in
+\bottomrule
+\end{tabular}
+\caption{Procedure~1 replication with LLM-as-judge. Original column shows human-annotated values from the paper. Self-judge and GPT-4o columns to be populated.}
+\label{tab:proc1-replication}
+\end{table}
+
+This experiment serves a dual purpose. First, it tests whether an automated LLM-as-judge pipeline can approximate the human annotation results, which would lower the barrier to independent replication of Procedure~1 for future work. Second, it provides a second estimate of Potemkin rates from an entirely different evaluation pathway, enabling comparison between the benchmark-based (Procedure~1) and automated (Procedure~2) approaches on overlapping models.
+
+A key methodological note: any deviation between our LLM-as-judge results and the original human annotations is itself a reproducibility finding. If the two approaches agree, it validates LLM-as-judge as a viable substitute. If they disagree, it highlights the degree to which Potemkin rates depend on the identity of the evaluator --- whether human or machine --- which connects directly to the self-judging circularity concern raised in Section~\ref{sec:cross-judging}.
+
+%% PLACEHOLDER: Insert results and analysis once procedure1_replication.ipynb outputs are available.
+
+\subsection{Methodological Issues}
+The most consequential methodological weakness is what we call the keystone assumption: the entire Procedure 1 benchmark is conditioned on models correctly defining a concept, treating definition accuracy as the keystone that validates subsequent task evaluation. But the paper's own data undermines this choice: models define concepts correctly 94.2\% of the time. This is a suspiciously high rate. LLMs have been trained on enormous corpora of definition-question pairs, and producing a correct definition may be precisely the task most susceptible to surface-level pattern matching. A model that has encountered the phrase "a haiku is a three-line poem with a 5-7-5 syllabic structure" thousands of times during pretraining can reproduce it without any coherent internal representation of syllabic structure.
+This matters because the potemkin rate is computed conditional on correct definition. If the definition keystone is trivially easy to pass - not because models understand concepts, but because they have memorized definitions - then the reported potemkin rate is not measuring a gap between understanding and application. It is measuring a gap between an easily-faked signal (definition recall) and a harder task (concept application). The framework would then be documenting a difficulty asymmetry, not a conceptual incoherence.
+A second methodological concern is that the automated procedure (Section 4) uses the same model as both responder and judge. A model that consistently misapplies a concept but does so in a self-consistent way will appear coherent under self-judging. This conflates two distinct failure modes: incoherence (the model contradicts itself) and misunderstanding (the model applies a consistently wrong interpretation). The paper describes these as separate phenomena but the automated procedure cannot distinguish them when the same model plays both roles.
+Our cross-model judging experiment (Section~3.5.3) is designed to test this directly. If a model that consistently misapplies a concept grades its own answers as correct (because its grading applies the same misconception), self-judging inflates apparent coherence. Cross-model evaluation breaks this circularity by using a judge that may not share the responder's systematic errors.
+%% PLACEHOLDER: Add cross-model result reference here once exp_001 results are available
+
+\paragraph{Metric unboundedness.}
+The Potemkin rate formula, $2(1 - \bar{C})$ where $\bar{C}$ is mean coherence, is presented as ranging from 0 (perfect coherence) to 1 (chance). However, the formula has no upper bound: when $\bar{C} < 0.5$ --- meaning the model grades correct answers as incorrect more often than not --- the rate exceeds 1.0. We observed this in 3 of our 7 model-benchmark configurations (Table~\ref{tab:iteration_results}). LLaMA-3.1-8B averaged 1.024 on BBH, LLaMA-3.2-3B averaged 1.018 on MMLU, and Qwen2.5-0.5B averaged 1.123 on MMLU. Values above 1.0 indicate anti-coherent judging --- a qualitatively different failure mode from the ``potemkin understanding'' the metric is designed to measure. The original paper never acknowledges this property, and it is unclear whether such values should be interpreted as extreme potemkin behaviour or as a breakdown of the self-judging mechanism itself. We report them without clamping and note that any future use of this metric should document its effective range.
+
+Domain aggregation also obscures important signal. Game theory concepts are formally specified and auto-graded; literary techniques are subjective and annotated by paper authors; psychological biases require expert behavioral scientists to evaluate. Aggregating potemkin rates across these three domains, as the paper does in Table 1, blends results with very different reliability levels. Table 6 in the paper's appendix shows enormous variance across domains and concepts, but this variance receives no dedicated analysis.
+
+
+\section{ LESSONS FOR THE COMMUNITY}
+
+
+The Potemkin paper makes a genuine and important contribution to how the field thinks about benchmark validity. The theoretical framework is rigorous, the core empirical finding is directionally robust, and the choice to release data and code publicly reflects commendable transparency. The following lessons are offered not as criticism of the paper's conclusions, but as specific, actionable improvements that would make the contribution more durable and replicable.
+The most urgent improvement is documentation of run-to-run variance. The paper reports point estimates with standard errors computed across concepts, but these standard errors reflect cross-concept variation, not the stochastic instability of the procedure itself. Our five-iteration replication shows that a single run of the automated procedure on the same model and dataset can yield incoherence scores ranging by 0.20 to 0.30 — a range large enough to change the qualitative interpretation of results. Reporting variance across runs, and providing seeded-random versions of the pipeline, would substantially increase confidence in the reported numbers.
+Specifically, our data shows that five runs are sufficient to reveal variance of practical significance: the standard deviation across 5~runs ranges from 0.05 (Qwen2.5-7B on BBH) to 0.23 (Qwen2.5-0.5B on MMLU). A single additional statistic --- the standard deviation across $N$ identical runs with different seeds --- would have flagged these stability concerns immediately.
+
+The subquestion generation cap should be documented explicitly, its value reported in the paper, and its effect on results analyzed. It is currently an invisible parameter that shapes the denominator of the incoherence rate without acknowledgment.
+The definition-evaluation procedure for Procedure 1 was performed by the paper's own authors and reports 94.2\% definition correctness, but no inter-rater reliability statistics are provided. Future versions should have a second annotator evaluate at least a stratified sample of definitions and report Cohen's kappa. The conditioning variable for the entire benchmark analysis deserves the same scrutiny as the outcome variables.
+The reasoning model finding belongs in the main paper, not buried in Table 2. An order-of-magnitude reduction in incoherence between standard and reasoning models is the most practically significant result in the paper. It deserves its own section, its own analysis, and given the pace of reasoning model deployment, its own careful discussion of what it implies for the framework's claims about ubiquity.
+
+
+\subsection{For the Broader Research Community}
+Our experience reproducing this paper points to several systemic lessons that generalize well beyond this specific work.
+Evaluation papers are held to lower reproducibility standards than they should be. A paper that introduces a new benchmark or evaluation procedure is, implicitly, building infrastructure that downstream work will rely on. If that infrastructure is fragile — if results vary widely across runs, if key parameters are undocumented, if the annotation pipeline cannot be replicated — then every paper that cites it and builds on it inherits that fragility. The reproducibility bar for evaluation methodology papers should arguably be higher than for standard empirical papers, not lower. At minimum, benchmark papers should be required to report run-to-run variance, document all stochastic parameters and seeds, and provide a minimal end-to-end reproduction script that a reader can run without reconstructing the orchestration layer.
+Domain aggregation conceals more than it reveals. The aggregate potemkin rate in Table 1 mixes results from a formally specified auto-gradable domain with results from interpretive, expert-annotated domains. The variance across domains visible in Appendix Table 6 of the original paper is large enough to tell very different stories depending on which domain you examine. Future work in this area should resist the temptation to produce a single headline number and instead report domain-stratified results as the primary finding, with aggregates treated as secondary summaries.
+The self-judge design is a structural limitation that should be acknowledged by default. Using a model to evaluate its own outputs is expedient and, as the original paper argues, conservative in principle — a self-consistent but wrong model will appear coherent. But our cross-model judging experiments suggest that this conservatism may be purchasing convenience at the cost of validity. When a model consistently applies a wrong interpretation that it also consistently judges to be correct, the self-judging procedure fails to surface the misunderstanding entirely. The field should treat same-model evaluation as a baseline that requires cross-model validation before results are accepted.
+Reasoning models change the conclusion, not just the numbers. The finding that reasoning models achieve dramatically lower incoherence rates than standard models is not a quantitative refinement of the paper's central claim. it is a potential refutation of its universality. If the potemkin failure mode is substantially mitigated by chain-of-thought reasoning, then the claim that potemkins are ubiquitous across LLMs may be a claim about a specific inference-time regime rather than about LLMs as a class. As reasoning-mode inference becomes more prevalent in deployment, this qualification becomes increasingly important. The community should rerun all potemkin analyses on reasoning models before treating the ubiquity claim as settled.
+
+
+
+
+\section{CONCLUSION}
+This paper has attempted to do three things: reproduce the core empirical claims of the Potemkin Understanding paper, characterize the fragilities and failures encountered in that effort, and extend the evaluation to model families and conditions not covered by the original study.
+Our reproduction confirms the paper's directional finding: standard non-reasoning LLMs do exhibit high incoherence rates under the automated procedure, and the gap between definition accuracy and task application accuracy in the benchmark is real. These results are not fabricated and the framework is not wrong.
+But the specific numbers are not as stable as the paper's presentation suggests. Run-to-run variance in the automated procedure is large enough to materially affect conclusions for individual models --- Potemkin scores vary by as much as 0.31 (31 percentage points) across identical runs, enough to flip whether a model appears above or below chance performance. The procedure fails for smaller models in ways that are not acknowledged and not easily corrected: Qwen2.5-0.5B produced zero valid BBH runs and only 3 of 5 MMLU runs.
+
+We additionally document that the Potemkin rate formula permits values exceeding 1.0, a property unacknowledged in the original work, observed in three of our seven model-benchmark configurations. The benchmark's aggregate potemkin rates inherit unknown measurement error from unvalidated annotation pipelines. And the single most striking finding in the paper, the order-of-magnitude reduction in incoherence for reasoning models, is left unanalysed despite being the result most consequential for how the field should interpret the paper's central claim.
+
+
+%%
+%% The acknowledgments section is defined using the "acks" environment
+%% (and NOT an unnumbered section). This ensures the proper
+%% identification of the section in the article metadata, and the
+%% consistent spelling of the heading.
+\begin{acks}
+To Robert, for the bagels and explaining CMYK and color spaces.
+\end{acks}
+
+%%
+%% The next two lines define the bibliography style to be used, and
+%% the bibliography file.
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{REP-2026-Interp}
+%\bibliography{sample-base, REP-2026-Interp-Related}
+
+
+%%
+%% If your work has an appendix, this is the place to put it.
+\appendix
+
+\section{Research Methods}
+
+\subsection{Procedure~2 Pipeline Details}
+
+The automated pipeline (Procedure~2) operates as follows for each trial: (1)~A question is sampled uniformly at random from the benchmark dataset (MMLU or BBH). (2)~The responder model determines whether the question tests a specific concept using a concept-detection prompt. If no concept is detected, the question is discarded and a new one is sampled (up to 50 attempts per trial). (3)~The responder answers the benchmark question. If incorrect against the gold answer, the question is discarded. (4)~The responder generates $m{=}5$ subquestions about the detected concept. If fewer than 5 are produced, the generation is retried up to 10 times; if fewer are still generated, all available subquestions are used. (5)~For each subquestion, the responder produces an answer and then an error-injected variant of that answer. (6)~The judge model grades both the original and error-injected answers as ``correct'' or ``incorrect.'' (7)~Coherence is computed: the judge should grade the original as correct and the error-injected version as incorrect. The Potemkin rate for the trial is $2(1 - \bar{C})$.
+
+All model calls use temperature 0.7 and top\_p 0.9 for local models. API models use their default settings. The subquestion generation cap of~5, the retry logic, and the concept-detection filter are modifications we introduced to improve stability; the original pipeline uses the same cap of~5 but with a re-generation loop that restarts the entire generation call if more than~5 are produced.
+
+\subsection{Modifications Summary}
+
+\begin{table}[h]
+\small
+\centering
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabularx}{\columnwidth}{l l X}
+\toprule
+\textbf{File} & \textbf{Change} & \textbf{Reason} \\
+\midrule
+main.py & Removed dead imports & Unused after redundant JSON save removed \\
+main.py & Removed redundant JSON save & ExperimentLogger handles all logging \\
+main.py & Fixed variable shadowing & \texttt{answer} $\to$ \texttt{candidate}; prevented subtle grading bugs \\
+utils.py & Fixed bare \texttt{except} & Prevented swallowing \texttt{KeyboardInterrupt} \\
+utils.py & Fixed Gemini variable shadowing & Parameter overwritten by API object \\
+utils.py & Added \texttt{ValueError} for unknown providers & Silent \texttt{None} return caused cryptic failures \\
+utils.py & Enhanced \texttt{parse\_questions()} & Fallback patterns for models ignoring XML tags \\
+utils.py & Multi-model cache & Dict keyed by model name; avoids costly reloads \\
+run\_experiments.py & Removed stale commented model & Cleanup \\
+\bottomrule
+\end{tabularx}
+\caption{Code modifications applied to the original codebase before running experiments.}
+\label{tab:modifications}
+\end{table}
+
+\subsection{Prompt Templates}
+
+\paragraph{Concept Detection.} ``Does the following question test a specific concept? If yes, respond with ANSWER: Yes and CONCEPT: [concept name]. If no, respond with ANSWER: No.''
+
+\paragraph{Subquestion Generation.} ``Write \{n\} other questions that test whether someone who understands the concepts the question is testing truly understands them. Format each question inside \texttt{<question></question>} tags.''
+
+\paragraph{Grading.} ``You are an expert tutor. Determine if the answer is correct or incorrect. Grade it correct only if the answer (including reasoning) is completely correct. End with FINAL ANSWER: followed by either `correct' or `incorrect'.''
+
+\paragraph{Error Introduction.} ``Modify the following answer to introduce a subtle error. The error should be subtle but one such that a human who knows the concept would know the answer is incorrect.''
+
+\subsection{Reproduction Instructions}
+
+To reproduce our Procedure~2 results: (1)~Clone the repository at the documented commit from GitHub. (2)~Install dependencies: \texttt{pip install -r requirements.txt}. (3)~For local model runs: \texttt{python AutomaticEval/main.py --model [HuggingFace model path] --benchmark [mmlu|bbh] --num\_trials 10 --seed 42}. (4)~For 5-iteration stability analysis: run the above command 5 times with seeds 42--46. (5)~For cross-model judging: \texttt{python AutomaticEval/run\_exp\_001.py --local-only --seed 42}. (6)~Aggregate results: \texttt{python AutomaticEval/aggregate\_results.py}.
+
+\section{Online Resources}
+
+\begin{itemize}
+    \item \textbf{Original paper repository:} \url{https://github.com/MarinaMancoridis/PotemkinBenchmark} (commit 39)
+    \item \textbf{Our reproduction repository:} [URL to be inserted before submission]
+    \item \textbf{Artifacts included:}
+    \begin{itemize}
+        \item All raw terminal outputs from 5-iteration stability runs
+        \item Aggregation script and CSVs (\texttt{aggregate\_results.py}, \texttt{aggregated\_table3.csv})
+        \item Cross-model judging experiment code (\texttt{exp\_001\_cross\_judge\_main.py})
+        \item Procedure~1 replication notebook (\texttt{procedure1\_replication.ipynb})
+        \item Experiment logs in JSONL format for all completed runs
+        \item Full changelog documenting all modifications (\texttt{changes.md})
+    \end{itemize}
+\end{itemize}
+
+\end{document}
+\endinput
+%%
+%% End of file `sample-sigconf-authordraft.tex'.
