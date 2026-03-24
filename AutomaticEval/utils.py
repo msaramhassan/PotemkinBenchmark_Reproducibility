@@ -20,17 +20,38 @@ from prompts import contains_concept_prompt, subquestion_generation_prompt
 # ---------------------------------------------------------------------------
 _model_cache: dict = {}  # model_name -> {"model": ..., "tokenizer": ..., "processor": ...}
 
+# Patterns that identify reasoning/chain-of-thought models requiring more output tokens.
+_REASONING_MODEL_PATTERNS = [
+    "deepseek-r1", "deepseek_r1", "r1-distill", "r1_distill",
+    "-r1", "_r1", "o1-", "o3-", "qwq", "skywork-o1",
+]
+
+# Default token budgets.
+_DEFAULT_MAX_NEW_TOKENS = 1024
+_REASONING_MAX_NEW_TOKENS = 8192
+
+
+def _is_reasoning_model(model_name: str) -> bool:
+    """Return True if the model name matches a known reasoning/CoT model pattern."""
+    lower = model_name.lower()
+    return any(pat in lower for pat in _REASONING_MODEL_PATTERNS)
+
+
+def _is_awq_model(model_name: str) -> bool:
+    """Return True if the model should be loaded with AutoAWQ."""
+    return "awq" in model_name.lower()
+
 
 def _is_vl_config(model_name):
     """Return True if the model uses a vision-language config (e.g. Qwen2VL)."""
     from transformers import AutoConfig
-    config = AutoConfig.from_pretrained(model_name)
+    config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
     config_class = type(config).__name__
     return "VL" in config_class or config_class.endswith("VLConfig")
 
 
 def load_local_model(model_name):
-    """Load a local model using transformers. Caches ALL loaded models by name
+    """Load a local model using transformers or AutoAWQ. Caches ALL loaded models by name
     so switching between responder and judge never triggers a reload."""
     global _model_cache
 
@@ -42,7 +63,21 @@ def load_local_model(model_name):
 
     print(f"Loading local model: {model_name}")
 
-    if _is_vl_config(model_name):
+    if _is_awq_model(model_name):
+        from awq import AutoAWQForCausalLM
+        from transformers import AutoTokenizer
+        processor = None
+        tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+        model = AutoAWQForCausalLM.from_pretrained(
+            model_name,
+            device_map="auto",
+            torch_dtype=torch.float16,
+            trust_remote_code=True,
+            low_cpu_mem_usage=True,
+        )
+        if tokenizer.pad_token is None:
+            tokenizer.pad_token = tokenizer.eos_token
+    elif _is_vl_config(model_name):
         from transformers import Qwen2VLForConditionalGeneration, AutoProcessor
         processor = AutoProcessor.from_pretrained(model_name)
         model = Qwen2VLForConditionalGeneration.from_pretrained(
@@ -62,22 +97,36 @@ def load_local_model(model_name):
             tokenizer.pad_token = tokenizer.eos_token
 
     _model_cache[model_name] = {"model": model, "tokenizer": tokenizer, "processor": processor}
-    print(f"Model loaded successfully. Device map: {model.hf_device_map}")
+    print(f"Model loaded successfully.")
     return model, tokenizer
 
 
-def generate_local_inference(prompt, model_name, max_new_tokens=1024):
-    """Generate inference using a local HuggingFace model."""
+def generate_local_inference(prompt, model_name, max_new_tokens=None):
+    """Generate inference using a local HuggingFace model.
+
+    If max_new_tokens is None, the budget is chosen automatically:
+    reasoning models (DeepSeek-R1, QwQ, etc.) get _REASONING_MAX_NEW_TOKENS
+    tokens; all other models get _DEFAULT_MAX_NEW_TOKENS.
+    """
     import torch
+
+    if max_new_tokens is None:
+        max_new_tokens = (
+            _REASONING_MAX_NEW_TOKENS if _is_reasoning_model(model_name)
+            else _DEFAULT_MAX_NEW_TOKENS
+        )
 
     model, tokenizer = load_local_model(model_name)
     processor = _model_cache[model_name]["processor"]
+
+    # AutoAWQForCausalLM does not expose a .device attribute; use parameters() instead.
+    device = model.device if hasattr(model, 'device') else next(model.parameters()).device
 
     if processor is not None:
         # VL model path (text-only input)
         messages = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
         text = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-        inputs = processor(text=[text], padding=True, return_tensors="pt").to(model.device)
+        inputs = processor(text=[text], padding=True, return_tensors="pt").to(device)
         with torch.no_grad():
             generated_ids = model.generate(**inputs, max_new_tokens=max_new_tokens)
         generated_ids_trimmed = [
@@ -94,7 +143,7 @@ def generate_local_inference(prompt, model_name, max_new_tokens=1024):
         else:
             formatted_prompt = prompt
 
-        inputs = tokenizer(formatted_prompt, return_tensors="pt").to(model.device)
+        inputs = tokenizer(formatted_prompt, return_tensors="pt").to(device)
 
         with torch.no_grad():
             outputs = model.generate(
