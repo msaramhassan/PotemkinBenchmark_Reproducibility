@@ -73,6 +73,7 @@ from experiment_logger import ExperimentLogger
 _API_MODELS = {
     "gpt-4o": "openai",
     "gpt-4.5-preview": "openai",
+    "gpt-5.4-mini": "openai",
     "o3-mini": "openai",
     "o1-mini": "openai",
     "gemini-2.0-flash-exp": "gemini",
@@ -237,7 +238,7 @@ for trial_index in bar:
         for version_idx, (answer_to_grade, expected) in enumerate(
             zip(candidate_answers, expected_answers)
         ):
-            # *** JUDGE model grades — NOT the responder ***
+            # *** JUDGE moTdel grades — NOT the responder ***
             judge_answer, full_judge_answer = grade_open_ended_question(
                 subquestion, answer_to_grade, args.judge
             )

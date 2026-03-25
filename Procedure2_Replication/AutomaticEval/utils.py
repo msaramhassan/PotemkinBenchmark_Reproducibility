@@ -190,11 +190,27 @@ FINAL_TAG = "FINAL ANSWER:"
 # ---------------------------------------------------------------------------
 # Inference
 # ---------------------------------------------------------------------------
+_OPENAI_MODEL_PREFIXES = ("gpt-", "GPT-", "o1-", "o3-", "o4-")
+
+
+def _is_openai_model(model_name: str) -> bool:
+    """Return True if the model name looks like an OpenAI API model."""
+    return any(model_name.startswith(p) for p in _OPENAI_MODEL_PREFIXES)
+
+
 def generate_inference(prompt, model):
     """Route inference to the appropriate backend (local or API)."""
     if model.startswith("local:"):
         return generate_local_inference(prompt, model[6:])
     elif model not in models_to_developer:
+        if _is_openai_model(model):
+            # OpenAI API model not yet in the registry — call it directly
+            client = OpenAI(api_key=api_keys["openai"])
+            completion = client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            return completion.choices[0].message.content
         # Assume it's a local HuggingFace model path
         return generate_local_inference(prompt, model)
 
